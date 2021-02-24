@@ -1,0 +1,135 @@
+import React, {useEffect} from 'react';
+import {StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import SplashScreen from './src/screens/SplashScreen';
+import AsyncStorage from '@react-native-community/async-storage';
+import Login from './src/screens/auth/Login';
+import Register from './src/screens/auth/Register';
+import OTPCode from './src/screens/auth/OTPCode';
+import Home from './src/screens/home/Home';
+import PlayNow from "./src/screens/home/PlayNow";
+import {AuthContext} from './context';
+
+const AuthStack = createStackNavigator();
+const AuthStackScreen = () => (
+  <AuthStack.Navigator headerMode="none">
+    <AuthStack.Screen name="Login" component={Login} />
+    <AuthStack.Screen name="Register" component={Register} />
+    <AuthStack.Screen name="OTPCode" component={OTPCode} />
+  </AuthStack.Navigator>
+);
+
+const HomeStack = createStackNavigator();
+const HomeStackScreen = () => (
+  <HomeStack.Navigator headerMode="none">
+    <HomeStack.Screen name="Home" component={Home} />
+    <HomeStack.Screen name="PlayNow" component={PlayNow} />
+  </HomeStack.Navigator>
+);
+
+const RootStack = createStackNavigator();
+const RootStackScreen = ({userToken}) => (
+  <RootStack.Navigator headerMode="none">
+    {userToken ? (
+      <RootStack.Screen
+        name="App"
+        component={HomeStackScreen}
+        options={{
+          animationEnabled: false,
+        }}
+      />
+    ) : (
+      <RootStack.Screen
+        name="Auth"
+        component={AuthStackScreen}
+        options={{
+          animationEnabled: false,
+        }}
+      />
+    )}
+  </RootStack.Navigator>
+);
+const App = () => {
+  const [showSplash, setShowSplash] = React.useState(null);
+  const [userToken, setUserToken] = React.useState(null);
+
+  useEffect(() => {
+    async function getSplashStatus() {
+      let isSplash = await AsyncStorage.getItem('@splash_done');
+      if (isSplash === null) {
+        setShowSplash(true);
+        setTimeout(() => {
+          setShowSplash(false);
+        }, 2000);
+      } else {
+        setShowSplash(false);
+      }
+    }
+    getSplashStatus();
+  }, []);
+
+  const authContext = React.useMemo(() => {
+    return {
+      signIn: async () => {
+        try {
+          const value = await AsyncStorage.getItem('@user_token');
+          if (value !== null) {
+            setUserToken(value);
+          } else {
+            setUserToken(null);
+          }
+        } catch (e) {}
+      },
+      signUp: async () => {
+        try {
+          const value = await AsyncStorage.getItem('@user_token');
+          if (value !== null) {
+            setUserToken(value);
+          } else {
+            setUserToken(null);
+          }
+        } catch (e) {}
+      },
+      signOut: async () => {
+        try {
+          await AsyncStorage.removeItem('@user_token');
+          setUserToken(null);
+        } catch (e) {}
+      },
+    };
+  }, []);
+
+  React.useEffect(() => {
+    async function getToken() {
+      try {
+        const value = await AsyncStorage.getItem('@user_token');
+
+        if (value !== null) {
+          setUserToken(value);
+        } else {
+          setUserToken(null);
+        }
+      } catch (e) {}
+    }
+    getToken();
+  }, []);
+
+  if (showSplash) {
+    return <SplashScreen />;
+  }
+
+  return (
+    <>
+      <StatusBar barStyle="dark-content" />
+
+      <AuthContext.Provider value={authContext}>
+        <NavigationContainer>
+          <RootStackScreen userToken={userToken} />
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </>
+  );
+};
+
+export default App;
