@@ -8,8 +8,13 @@ import Login from './src/screens/auth/Login';
 import Register from './src/screens/auth/Register';
 import OTPCode from './src/screens/auth/OTPCode';
 import Home from './src/screens/home/Home';
-import PlayNow from "./src/screens/home/PlayNow";
+import PlayNow from './src/screens/home/PlayNow';
 import {AuthContext} from './context';
+import Profile from './src/screens/menus/Profile';
+import Transactions from './src/screens/menus/Transactions';
+import Wallet from './src/screens/menus/Wallet';
+import TimeBazaar from './src/screens/home/TimeBazaar';
+import Withdraw from './src/screens/menus/Withdraw';
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -25,6 +30,11 @@ const HomeStackScreen = () => (
   <HomeStack.Navigator headerMode="none">
     <HomeStack.Screen name="Home" component={Home} />
     <HomeStack.Screen name="PlayNow" component={PlayNow} />
+    <HomeStack.Screen name="Profile" component={Profile} />
+    <HomeStack.Screen name="Transactions" component={Transactions} />
+    <HomeStack.Screen name="Wallet" component={Wallet} />
+    <HomeStack.Screen name="TimeBazaar" component={TimeBazaar} />
+    <HomeStack.Screen name="Withdraw" component={Withdraw} />
   </HomeStack.Navigator>
 );
 

@@ -34,7 +34,7 @@ const Home = (props) => {
 
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
-      <Header popModal={popModal} />
+      <Header popModal={popModal} nav={props.navigation}/>
       <ScrollView style={{flex: 1, paddingHorizontal: 5}}>
         <View style={styles.headerBox}>
           <Text style={styles.headerText}>

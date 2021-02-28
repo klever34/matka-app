@@ -48,7 +48,9 @@ const PlayNow = (props) => {
               </View>
               <Text style={styles.smallText}>Jodi</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() => props.navigation.push('TimeBazaar')}>
               <View style={styles.iconBox}>
                 <Image
                   source={require('../../assets/images/single-patti.png')}

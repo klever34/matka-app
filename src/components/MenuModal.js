@@ -48,69 +48,58 @@ const MenuModal = ({exitModal, popModal, nav}) => {
           </View>
 
           <View style={styles.actions}>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() => {
+                closeModal(true);
+                nav.push('Profile');
+              }}>
               <View style={styles.iconBox}>
-                <FontAwesome5
-                  name={'user-circle'}
-                  size={42}
-                  color={'#000'}
-                  onPress={() => closeModal(true)}
-                />
+                <FontAwesome5 name={'user-circle'} size={42} color={'#000'} />
               </View>
               <Text style={styles.smallText}>Profile</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() => {
+                closeModal(true);
+                nav.push('Transactions');
+              }}>
               <View style={styles.iconBox}>
-                <FontAwesome5
-                  name={'file-alt'}
-                  size={42}
-                  color={'#000'}
-                  onPress={() => closeModal(true)}
-                />
+                <FontAwesome5 name={'file-alt'} size={42} color={'#000'} />
               </View>
               <Text style={styles.smallText}>Transactions</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.box}>
               <View style={styles.iconBox}>
-                <FontAwesome5
-                  name={'lock'}
-                  size={42}
-                  color={'#000'}
-                  onPress={() => closeModal(true)}
-                />
+                <FontAwesome5 name={'lock'} size={42} color={'#000'} />
               </View>
               <Text style={styles.smallText}>Password</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() => {
+                closeModal(true);
+                nav.push('Withdraw');
+              }}>
               <View style={styles.iconBox}>
                 <FontAwesome5
                   name={'money-bill-alt'}
                   size={38}
                   color={'#000'}
-                  onPress={() => closeModal(true)}
                 />
               </View>
               <Text style={styles.smallText}>Withdraw</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.box}>
               <View style={styles.iconBox}>
-                <FontAwesome5
-                  name={'info-circle'}
-                  size={42}
-                  color={'#000'}
-                  onPress={() => closeModal(true)}
-                />
+                <FontAwesome5 name={'info-circle'} size={42} color={'#000'} />
               </View>
               <Text style={styles.smallText}>How to Play</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.box}>
               <View style={styles.iconBox}>
-                <FontAwesome5
-                  name={'share-alt'}
-                  size={42}
-                  color={'#000'}
-                  onPress={() => closeModal(true)}
-                />
+                <FontAwesome5 name={'share-alt'} size={42} color={'#000'} />
               </View>
               <Text style={styles.smallText}>Share</Text>
             </TouchableOpacity>

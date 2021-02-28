@@ -4,12 +4,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors } from '../constants';
 
-const Header = ({popModal}) => {
+const Header = ({popModal, nav}) => {
   return (
     <View style={styles.headerBox}>
       <MaterialCommunityIcons name={'menu'} size={30} color={'#000'} onPress={() => popModal(true)} />
       <View style={styles.leftBox}>
-        <MaterialCommunityIcons name={'wallet'} size={30} color={'#000'} />
+        <MaterialCommunityIcons name={'wallet'} size={30} color={'#000'} onPress={() => nav.push('Wallet')} />
         <Text style={styles.headerText}>0</Text>
         <MaterialCommunityIcons name={'refresh'} size={30} color={'#000'} />
       </View>
