@@ -90,6 +90,21 @@ const PlayNow = (props) => {
               </View>
               <Text style={styles.smallText}>Double Patti</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() =>
+                props.navigation.push('TimeBazaar', {
+                  gameType: 'tripple-patti',
+                })
+              }>
+              <View style={styles.iconBox}>
+                <Image
+                  source={require('../../assets/images/tripple-patti.png')}
+                  style={{height: 70, width: 50, resizeMode: 'contain'}}
+                />
+              </View>
+              <Text style={styles.smallText}>Tripple Patti</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View>
@@ -104,7 +119,7 @@ const PlayNow = (props) => {
             <Text style={styles.header}>Time Bazaar Closed Games</Text>
           </View>
           <View style={styles.actions}>
-            <TouchableOpacity
+          <TouchableOpacity
               style={styles.box}
               onPress={() =>
                 props.navigation.push('TimeBazaar', {
@@ -123,12 +138,27 @@ const PlayNow = (props) => {
               style={styles.box}
               onPress={() =>
                 props.navigation.push('TimeBazaar', {
-                  gameType: 'single-patti',
+                  gameType: 'jodi',
                 })
               }>
               <View style={styles.iconBox}>
                 <Image
                   source={require('../../assets/images/Vector.png')}
+                  style={{height: 70, width: 50, resizeMode: 'contain'}}
+                />
+              </View>
+              <Text style={styles.smallText}>Jodi</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() =>
+                props.navigation.push('TimeBazaar', {
+                  gameType: 'single-patti',
+                })
+              }>
+              <View style={styles.iconBox}>
+                <Image
+                  source={require('../../assets/images/single-patti.png')}
                   style={{height: 70, width: 50, resizeMode: 'contain'}}
                 />
               </View>
@@ -174,8 +204,8 @@ const PlayNow = (props) => {
 const styles = StyleSheet.create({
   actions: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    // alignItems: 'center',
+    justifyContent: 'space-evenly',
     flexWrap: 'wrap',
     padding: 10,
   },
