@@ -30,7 +30,13 @@ const PlayNow = (props) => {
             <Text style={styles.header}>Time Bazaar Open Games</Text>
           </View>
           <View style={styles.actions}>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() =>
+                props.navigation.push('TimeBazaar', {
+                  gameType: 'single',
+                })
+              }>
               <View style={styles.iconBox}>
                 <Image
                   source={require('../../assets/images/single-die.png')}
@@ -39,7 +45,13 @@ const PlayNow = (props) => {
               </View>
               <Text style={styles.smallText}>Single</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() =>
+                props.navigation.push('TimeBazaar', {
+                  gameType: 'jodi',
+                })
+              }>
               <View style={styles.iconBox}>
                 <Image
                   source={require('../../assets/images/Vector.png')}
@@ -50,7 +62,11 @@ const PlayNow = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.box}
-              onPress={() => props.navigation.push('TimeBazaar')}>
+              onPress={() =>
+                props.navigation.push('TimeBazaar', {
+                  gameType: 'single-patti',
+                })
+              }>
               <View style={styles.iconBox}>
                 <Image
                   source={require('../../assets/images/single-patti.png')}
@@ -59,7 +75,13 @@ const PlayNow = (props) => {
               </View>
               <Text style={styles.smallText}>Single Patti</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() =>
+                props.navigation.push('TimeBazaar', {
+                  gameType: 'double-patti',
+                })
+              }>
               <View style={styles.iconBox}>
                 <Image
                   source={require('../../assets/images/double-patti.png')}
@@ -82,7 +104,13 @@ const PlayNow = (props) => {
             <Text style={styles.header}>Time Bazaar Closed Games</Text>
           </View>
           <View style={styles.actions}>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() =>
+                props.navigation.push('TimeBazaar', {
+                  gameType: 'single',
+                })
+              }>
               <View style={styles.iconBox}>
                 <Image
                   source={require('../../assets/images/single-die.png')}
@@ -91,7 +119,13 @@ const PlayNow = (props) => {
               </View>
               <Text style={styles.smallText}>Single</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() =>
+                props.navigation.push('TimeBazaar', {
+                  gameType: 'single-patti',
+                })
+              }>
               <View style={styles.iconBox}>
                 <Image
                   source={require('../../assets/images/Vector.png')}
@@ -100,7 +134,13 @@ const PlayNow = (props) => {
               </View>
               <Text style={styles.smallText}>Single Patti</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() =>
+                props.navigation.push('TimeBazaar', {
+                  gameType: 'double-patti',
+                })
+              }>
               <View style={styles.iconBox}>
                 <Image
                   source={require('../../assets/images/double-patti.png')}
@@ -109,7 +149,13 @@ const PlayNow = (props) => {
               </View>
               <Text style={styles.smallText}>Double Patti</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() =>
+                props.navigation.push('TimeBazaar', {
+                  gameType: 'tripple-patti',
+                })
+              }>
               <View style={styles.iconBox}>
                 <Image
                   source={require('../../assets/images/tripple-patti.png')}

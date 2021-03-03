@@ -14,30 +14,31 @@ import Feather from 'react-native-vector-icons/Feather';
 import {colors, baseUrl} from '../../constants/index';
 import axios from 'axios';
 
-const OTPCode = (props) => {
+const CreateProfile = (props) => {
   const [showIndicator, setIndicator] = useState(false);
   const [opacity, setOpacity] = useState(1);
-  const {mobile_no} = props.route.params;
   const [code, setCode] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const {mobile_no} = props.route.params;
 
-  const verifyOTP = async () => {
-    if (!code) {
-      alert('Please enter the code');
+  const createProfile = async () => {
+    if (!username || !password) {
+      alert('All fields are required');
       return;
     }
 
     try {
       setOpacity(0.2);
       setIndicator(true);
-      const response = await axios.post(`${baseUrl}verifyOtp`, {
+      const response = await axios.put(`${baseUrl}UpdateUsernamePassword`, {
         mobile_no,
-        otp: code,
+        username,
+        password,
       });
       console.log(response.data);
       if (response.data.status) {
-        props.navigation.push('CreateProfile', {
-          mobile_no: mobile_no,
-        });
+        props.navigation.push('Login');
       } else {
         alert(response.data.msg);
       }
@@ -49,7 +50,6 @@ const OTPCode = (props) => {
       setIndicator(false);
     }
   };
-
   return (
     <View
       style={{
@@ -57,7 +57,6 @@ const OTPCode = (props) => {
         backgroundColor: colors.primary,
         padding: 20,
         justifyContent: 'center',
-        paddingTop: 70,
       }}>
       <ScrollView style={{flex: 1, backgroundColor: colors.primary}}>
         <Image
@@ -71,25 +70,47 @@ const OTPCode = (props) => {
         />
         <Text style={styles.appName}>Matka App</Text>
         <Text style={[styles.appName, {marginVertical: 15, fontSize: 18}]}>
-          Enter your OTP here
+          Create Profile
         </Text>
         <View style={styles.inputBox}>
+          <Feather
+            name={'user'}
+            size={18}
+            color={'#000'}
+            style={{marginHorizontal: 10}}
+          />
           <TextInput
-            placeholder={'Enter OTP'}
+            placeholder={'Enter Username'}
             style={{
               width: '100%',
               marginHorizontal: 10,
               fontFamily: 'AveriaSansLibre-Regular',
-              fontSize: 16,
             }}
-            onChangeText={(text) => setCode(text)}
-            keyboardType="number-pad"
+            onChangeText={(text) => setUsername(text)}
+          />
+        </View>
+        <View style={styles.inputBox}>
+          <Feather
+            name={'key'}
+            size={18}
+            color={'#000'}
+            style={{marginHorizontal: 10}}
+          />
+          <TextInput
+            placeholder={'Enter Password'}
+            style={{
+              width: '100%',
+              marginHorizontal: 10,
+              fontFamily: 'AveriaSansLibre-Regular',
+            }}
+            secureTextEntry={true}
+            onChangeText={(text) => setPassword(text)}
           />
         </View>
         <TouchableOpacity
           style={[styles.btn, {opacity: opacity}]}
-          onPress={() => verifyOTP()}>
-          <Text style={[styles.appName, {fontSize: 18}]}>Verify Me</Text>
+          onPress={() => createProfile()}>
+          <Text style={[styles.appName, {fontSize: 18}]}>Register</Text>
           {showIndicator && (
             <ActivityIndicator
               size={'small'}
@@ -98,6 +119,11 @@ const OTPCode = (props) => {
             />
           )}
         </TouchableOpacity>
+        <Text
+          style={[styles.appName, {fontSize: 24, marginTop: 30}]}
+          onPress={() => props.navigation.push('ForgotPassword')}>
+          Forgot Password?
+        </Text>
       </ScrollView>
     </View>
   );
@@ -132,4 +158,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OTPCode;
+export default CreateProfile;

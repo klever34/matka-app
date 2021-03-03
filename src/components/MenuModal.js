@@ -14,10 +14,17 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {colors} from '../constants';
 const height = Dimensions.get('window').height;
+import {AuthContext} from '../../context';
 
 const MenuModal = ({exitModal, popModal, nav}) => {
+  const {signOut} = React.useContext(AuthContext);
+
   const closeModal = (item) => {
     exitModal(item);
+  };
+
+  const logOut = () => {
+    signOut();
   };
 
   return (
@@ -43,7 +50,10 @@ const MenuModal = ({exitModal, popModal, nav}) => {
               name={'logout'}
               size={22}
               color={'#000'}
-              onPress={() => closeModal(true)}
+              onPress={() => {
+                closeModal(true);
+                logOut();
+              }}
             />
           </View>
 

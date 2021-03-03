@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,14 +7,19 @@ import {
   ScrollView,
   StyleSheet,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Feather from 'react-native-vector-icons/Feather';
-import {colors} from '../../constants/index';
+import {colors, baseUrl} from '../../constants/index';
 import {AuthContext} from '../../../context';
+import axios from 'axios';
 
 const Login = (props) => {
   const {signIn} = React.useContext(AuthContext);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [showIndicator, setIndicator] = useState(false);
 
   const BT = (props) => (
     <Text
@@ -28,12 +33,30 @@ const Login = (props) => {
   );
 
   const authUser = async () => {
-    await AsyncStorage.setItem(
-      '@user_token',
-      'result.data.data.tokenresult.data.data.tokenresult.data.data.token',
-    );
-    signIn();
-    return;
+    if (!username || !password) {
+      alert('Please enter a mobile number');
+      return;
+    }
+
+    try {
+      setIndicator(true);
+      const response = await axios.post(`${baseUrl}login`, {
+        mobile_no: username,
+        password,
+        notification_token: "kgasjhaskd"
+      });
+      console.log(response.data);
+      if (response.data.status) {
+        await AsyncStorage.setItem("@user_token", response.data.token);
+        signIn();
+      } else {
+        alert(response.data.msg);
+      }
+      setIndicator(false);
+    } catch (error) {
+      console.log(JSON.stringify(error));
+      setIndicator(false);
+    }
   };
 
   return (
@@ -73,6 +96,7 @@ const Login = (props) => {
               marginHorizontal: 10,
               fontFamily: 'AveriaSansLibre-Regular',
             }}
+            onChangeText={(text) => setUsername(text)}
           />
         </View>
         <View style={styles.inputBox}>
@@ -90,17 +114,29 @@ const Login = (props) => {
               fontFamily: 'AveriaSansLibre-Regular',
             }}
             secureTextEntry={true}
+            onChangeText={(text) => setPassword(text)}
           />
         </View>
-        <TouchableOpacity style={styles.btn} onPress={() => authUser()}>
+        <TouchableOpacity style={[styles.btn]} onPress={() => authUser()}>
           <Text style={[styles.appName, {fontSize: 18}]}>Login</Text>
+          {showIndicator && (
+            <ActivityIndicator
+              size={'small'}
+              color={'#000'}
+              style={{paddingLeft: 10}}
+            />
+          )}
         </TouchableOpacity>
         <Text
           style={[styles.appName, {fontSize: 24, marginTop: 30}]}
           onPress={() => props.navigation.push('Register')}>
           Want to Create an account?
         </Text>
-        <Text style={[styles.appName, {fontSize: 24}]}>Forgot Password?</Text>
+        <Text
+          style={[styles.appName, {fontSize: 24}]}
+          onPress={() => props.navigation.push('ForgotPassword')}>
+          Forgot Password?
+        </Text>
       </ScrollView>
     </View>
   );

@@ -31,7 +31,12 @@ const BackHeader = (props) => {
           style={{paddingHorizontal: 20}}
           onPress={() => props.navigation.push('Home')}
         />
-        <MaterialCommunityIcons name={'file-table'} size={25} color={'#000'} />
+        <MaterialCommunityIcons
+          name={'file-table'}
+          size={25}
+          color={'#000'}
+          onPress={() => props.navigation.push('Transactions')}
+        />
       </View>
     </View>
   );

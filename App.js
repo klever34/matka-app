@@ -15,6 +15,8 @@ import Transactions from './src/screens/menus/Transactions';
 import Wallet from './src/screens/menus/Wallet';
 import TimeBazaar from './src/screens/home/TimeBazaar';
 import Withdraw from './src/screens/menus/Withdraw';
+import ForgotPassword from './src/screens/auth/ForgotPassword';
+import CreateProfile from './src/screens/auth/CreateProfile';
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -22,6 +24,8 @@ const AuthStackScreen = () => (
     <AuthStack.Screen name="Login" component={Login} />
     <AuthStack.Screen name="Register" component={Register} />
     <AuthStack.Screen name="OTPCode" component={OTPCode} />
+    <AuthStack.Screen name="ForgotPassword" component={ForgotPassword} />
+    <AuthStack.Screen name="CreateProfile" component={CreateProfile} />
   </AuthStack.Navigator>
 );
 

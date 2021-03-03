@@ -1,4 +1,4 @@
-export const baseUrl = 'https://jharupdate.ml/api/';
+export const baseUrl = 'http://matkaapp.ml/api/';
 
 export const colors = {
   primary: '#F5AF45',
