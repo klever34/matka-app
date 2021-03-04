@@ -66,7 +66,7 @@ const Home = (props) => {
   };
 
   const convertTime12to24 = (time12h) => {
-    const [time, modifier] = time12h.split(' ');
+    const [time, modifier] = (time12h.toUpperCase()).split(' ');
     let [hours, minutes] = time.split(':');
     var today = new Date();
     var currentTime =
@@ -79,14 +79,11 @@ const Home = (props) => {
     if (modifier === 'PM') {
       hours = parseInt(hours, 10) + 12;
     }
-
-    if (parseInt(a) > parseInt(hours)) {
+    if (parseInt(a) < parseInt(hours)) {
       return 'closed';
     } else {
       return 'open';
     }
-
-    // return `${hours}:${minutes}`;
   };
 
   const renderMatches = ({item}) => {
@@ -108,7 +105,7 @@ const Home = (props) => {
             justifyContent: 'space-between',
           }}>
           <View>
-            {convertTime12to24(item.open_time) === 'open' ? (
+            {convertTime12to24(item.close_time) === 'closed' ? (
               <View
                 style={{
                   flexDirection: 'row',
@@ -158,7 +155,7 @@ const Home = (props) => {
               </View>
             )}
           </View>
-          {convertTime12to24(item.open_time) === 'open' && (
+          {convertTime12to24(item.close_time) === 'closed' && (
             <TouchableOpacity
               style={styles.btn}
               onPress={() =>
