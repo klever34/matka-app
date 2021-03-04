@@ -362,10 +362,10 @@ const TimeBazaar = (props) => {
   }
 
   const [data, setData] = useState([
-    {
-      digit: 4,
-      amount: 45,
-    },
+    // {
+    //   digit: 4,
+    //   amount: 45,
+    // },
   ]);
 
   useEffect(() => {

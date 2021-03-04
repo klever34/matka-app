@@ -107,7 +107,7 @@ const Transactions = (props) => {
           style={[styles.headerRow, {borderRadius: null, marginVertical: 20}]}>
           <Text style={[styles.boxText, {fontSize: 26, textAlign: 'left'}]}>
             Pay the money in whatever mode you want to send. and take the
-            screenshot and send it to the whatsapp number: +91-0123456789
+            screenshot and send it with your username to the whatsapp number: +91-0123456789
           </Text>
         </View>
       </ScrollView>
