@@ -374,13 +374,20 @@ const Withdraw = (props) => {
                   alignSelf: 'center',
                   borderRadius: 50,
                   backgroundColor: colors.primary,
+                  flexDirection: 'row',
                 },
               ]}>
               <Text style={styles.boxText}>Submit</Text>
+              {showIndicator && (
+                <ActivityIndicator
+                  size={'small'}
+                  color={'#000'}
+                  style={{paddingLeft: 10}}
+                />
+              )}
             </TouchableOpacity>
           </View>
         )}
-
       </ScrollView>
     </View>
   );
