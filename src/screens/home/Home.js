@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  FlatList,
 } from 'react-native';
 import Header from '../../components/Header';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -18,23 +19,32 @@ const Home = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [matches, setMatches] = useState([]);
   const [showView, setView] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getMatches() {
       try {
         const value = await AsyncStorage.getItem('@user_token');
         axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
-        const response = await axios.get(`${baseUrl}allMatch`);
+        const response = await axios.get(
+          `${baseUrl}allMatch?page=${pageNumber}`,
+        );
         console.log(response.data.data.data);
-        setMatches(response.data.data.data);
+        if (pageNumber <= 1) {
+          setMatches(response.data.data.data);
+        } else if (pageNumber > 1) {
+          setMatches((matches) => [...matches, ...response.data.data.data]);
+        } else {
+        }
         setView(true);
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
     }
-
     getMatches();
-  }, []);
+  }, [pageNumber]);
 
   const RT = (props) => (
     <Text
@@ -79,6 +89,102 @@ const Home = (props) => {
     // return `${hours}:${minutes}`;
   };
 
+  const renderMatches = ({item}) => {
+    return (
+      <View style={styles.card}>
+        <Text style={styles.cardHeader}>{item.name}</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={[styles.smallText, {fontSize: 10}]}>
+            Open Time: {item.open_time.toUpperCase()}
+          </Text>
+          <Text style={[styles.smallText, {fontSize: 10}]}>
+            Close Time: {item.close_time.toUpperCase()}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <View>
+            {convertTime12to24(item.open_time) === 'open' ? (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={[styles.smallText, {color: '#000'}]}>
+                  {item.random_no_1}
+                </Text>
+                <Text
+                  style={[
+                    styles.smallText,
+                    {
+                      color: '#000',
+                      fontSize: 22,
+                      fontFamily: 'Roboto-Bold',
+                    },
+                  ]}>
+                  {item.random_no_2}
+                </Text>
+                <Text style={[styles.smallText, {color: '#000'}]}>
+                  {item.random_no_3}
+                </Text>
+              </View>
+            ) : (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={[styles.smallText, {color: '#000'}]}>
+                  {item.random_no_4}
+                </Text>
+                <Text
+                  style={[
+                    styles.smallText,
+                    {
+                      color: '#000',
+                      fontSize: 22,
+                      fontFamily: 'Roboto-Bold',
+                    },
+                  ]}>
+                  {item.random_no_5}
+                </Text>
+                <Text style={[styles.smallText, {color: '#000'}]}>
+                  {item.random_no_6}
+                </Text>
+              </View>
+            )}
+          </View>
+          {convertTime12to24(item.open_time) === 'open' && (
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() =>
+                props.navigation.push('PlayNow', {
+                  matchId: item.id,
+                })
+              }>
+              <Text
+                style={[
+                  styles.smallText,
+                  {color: '#000', fontSize: 18, marginRight: 0},
+                ]}>
+                Play Now
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
+    );
+  };
+
+  const handleMoreData = () => {
+    setPageNumber(pageNumber + 1);
+    setLoading(true);
+  };
+
   if (showView) {
     return (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -101,94 +207,17 @@ const Home = (props) => {
               <RT>8754219865</RT>
             </Text>
           </View>
-          {matches.map((item, index) => (
-            <View style={styles.card} key={index}>
-              <Text style={styles.cardHeader}>{item.name}</Text>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={[styles.smallText, {fontSize: 10}]}>
-                  Open Time: {item.open_time.toUpperCase()}
-                </Text>
-                <Text style={[styles.smallText, {fontSize: 10}]}>
-                  Close Time: {item.close_time.toUpperCase()}
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}>
-                <View>
-                  {convertTime12to24(item.open_time) === 'open' ? (
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                      }}>
-                      <Text style={[styles.smallText, {color: '#000'}]}>
-                        {item.random_no_1}
-                      </Text>
-                      <Text
-                        style={[
-                          styles.smallText,
-                          {
-                            color: '#000',
-                            fontSize: 22,
-                            fontFamily: 'Roboto-Bold',
-                          },
-                        ]}>
-                        {item.random_no_2}
-                      </Text>
-                      <Text style={[styles.smallText, {color: '#000'}]}>
-                        {item.random_no_3}
-                      </Text>
-                    </View>
-                  ) : (
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                      }}>
-                      <Text style={[styles.smallText, {color: '#000'}]}>
-                        {item.random_no_4}
-                      </Text>
-                      <Text
-                        style={[
-                          styles.smallText,
-                          {
-                            color: '#000',
-                            fontSize: 22,
-                            fontFamily: 'Roboto-Bold',
-                          },
-                        ]}>
-                        {item.random_no_5}
-                      </Text>
-                      <Text style={[styles.smallText, {color: '#000'}]}>
-                        {item.random_no_6}
-                      </Text>
-                    </View>
-                  )}
-                </View>
-                {convertTime12to24(item.open_time) === 'open' && (
-                  <TouchableOpacity
-                    style={styles.btn}
-                    onPress={() =>
-                      props.navigation.push('PlayNow', {
-                        matchId: item.id,
-                      })
-                    }>
-                    <Text
-                      style={[
-                        styles.smallText,
-                        {color: '#000', fontSize: 18, marginRight: 0},
-                      ]}>
-                      Play Now
-                    </Text>
-                  </TouchableOpacity>
-                )}
-              </View>
-            </View>
-          ))}
+          <FlatList
+            style={{flex: 1}}
+            data={matches}
+            renderItem={renderMatches}
+            keyExtractor={(item, index) => index.toString()}
+            onEndReached={handleMoreData}
+            onEndReachedThreshold={0}
+          />
+          {isLoading && (
+            <ActivityIndicator size="large" color={colors.primary} />
+          )}
         </ScrollView>
         <MenuModal
           popModal={showModal}
