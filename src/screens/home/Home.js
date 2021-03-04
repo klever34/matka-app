@@ -1,17 +1,40 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import Header from '../../components/Header';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MenuModal from '../../components/MenuModal';
+import axios from 'axios';
+import {baseUrl, colors} from '../../constants/index';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Home = (props) => {
   const [showModal, setShowModal] = useState(false);
+  const [matches, setMatches] = useState([]);
+  const [showView, setView] = useState(false);
+
+  useEffect(() => {
+    async function getMatches() {
+      try {
+        const value = await AsyncStorage.getItem('@user_token');
+        axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
+        const response = await axios.get(`${baseUrl}allMatch`);
+        console.log(response.data.data.data);
+        setMatches(response.data.data.data);
+        setView(true);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getMatches();
+  }, []);
 
   const RT = (props) => (
     <Text
@@ -32,81 +55,162 @@ const Home = (props) => {
     setShowModal(true);
   };
 
-  return (
-    <View style={{flex: 1, backgroundColor: '#fff'}}>
-      <Header popModal={popModal} nav={props.navigation}/>
-      <ScrollView style={{flex: 1, paddingHorizontal: 5}}>
-        <View style={styles.headerBox}>
-          <Text style={styles.headerText}>
-            Welcome to Matka Games. Let's Play Matka Online
-          </Text>
-        </View>
-        <View style={styles.headerBox}>
-          <MaterialCommunityIcons
-            name={'whatsapp'}
-            size={30}
-            color={'#000'}
-            style={{alignSelf: 'center'}}
-          />
-          <Text style={styles.headerText}>
-            WhatsApp Number of Our Admin{'\n'}
-            <RT>8754219865</RT>
-          </Text>
-        </View>
-        {[0, 1, 2, 3, 4, 5].map((item, index) => (
-          <View style={styles.card} key={index}>
-            <Text style={styles.cardHeader}>TIME BAZAAR</Text>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={[styles.smallText, {fontSize: 10}]}>
-                Open Time: 12:55pm
-              </Text>
-              <Text style={[styles.smallText, {fontSize: 10}]}>
-                Close Time: 2:55pm
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
+  const convertTime12to24 = (time12h) => {
+    const [time, modifier] = time12h.split(' ');
+    let [hours, minutes] = time.split(':');
+    var today = new Date();
+    var currentTime =
+      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    let [a, b] = currentTime.split(':');
+    if (hours === '12') {
+      hours = '00';
+    }
+
+    if (modifier === 'PM') {
+      hours = parseInt(hours, 10) + 12;
+    }
+
+    if (parseInt(a) > parseInt(hours)) {
+      return 'closed';
+    } else {
+      return 'open';
+    }
+
+    // return `${hours}:${minutes}`;
+  };
+
+  if (showView) {
+    return (
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
+        <Header popModal={popModal} nav={props.navigation} />
+        <ScrollView style={{flex: 1, paddingHorizontal: 5}}>
+          <View style={styles.headerBox}>
+            <Text style={styles.headerText}>
+              Welcome to Matka Games. Let's Play Matka Online
+            </Text>
+          </View>
+          <View style={styles.headerBox}>
+            <MaterialCommunityIcons
+              name={'whatsapp'}
+              size={30}
+              color={'#000'}
+              style={{alignSelf: 'center'}}
+            />
+            <Text style={styles.headerText}>
+              WhatsApp Number of Our Admin{'\n'}
+              <RT>8754219865</RT>
+            </Text>
+          </View>
+          {matches.map((item, index) => (
+            <View style={styles.card} key={index}>
+              <Text style={styles.cardHeader}>{item.name}</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={[styles.smallText, {fontSize: 10}]}>
+                  Open Time: {item.open_time.toUpperCase()}
+                </Text>
+                <Text style={[styles.smallText, {fontSize: 10}]}>
+                  Close Time: {item.close_time.toUpperCase()}
+                </Text>
+              </View>
               <View
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
+                  justifyContent: 'space-between',
                 }}>
-                <Text style={[styles.smallText, {color: '#000'}]}>87</Text>
-                <Text
-                  style={[
-                    styles.smallText,
-                    {color: '#000', fontSize: 22, fontFamily: 'Roboto-Bold'},
-                  ]}>
-                  157
-                </Text>
-                <Text style={[styles.smallText, {color: '#000'}]}>987</Text>
+                <View>
+                  {convertTime12to24(item.open_time) === 'open' ? (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}>
+                      <Text style={[styles.smallText, {color: '#000'}]}>
+                        {item.random_no_1}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.smallText,
+                          {
+                            color: '#000',
+                            fontSize: 22,
+                            fontFamily: 'Roboto-Bold',
+                          },
+                        ]}>
+                        {item.random_no_2}
+                      </Text>
+                      <Text style={[styles.smallText, {color: '#000'}]}>
+                        {item.random_no_3}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}>
+                      <Text style={[styles.smallText, {color: '#000'}]}>
+                        {item.random_no_4}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.smallText,
+                          {
+                            color: '#000',
+                            fontSize: 22,
+                            fontFamily: 'Roboto-Bold',
+                          },
+                        ]}>
+                        {item.random_no_5}
+                      </Text>
+                      <Text style={[styles.smallText, {color: '#000'}]}>
+                        {item.random_no_6}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+                {convertTime12to24(item.open_time) === 'open' && (
+                  <TouchableOpacity
+                    style={styles.btn}
+                    onPress={() =>
+                      props.navigation.push('PlayNow', {
+                        matchId: item.id,
+                      })
+                    }>
+                    <Text
+                      style={[
+                        styles.smallText,
+                        {color: '#000', fontSize: 18, marginRight: 0},
+                      ]}>
+                      Play Now
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => props.navigation.push('PlayNow')}>
-                <Text
-                  style={[
-                    styles.smallText,
-                    {color: '#000', fontSize: 18, marginRight: 0},
-                  ]}>
-                  Play Now
-                </Text>
-              </TouchableOpacity>
             </View>
-          </View>
-        ))}
-      </ScrollView>
-      <MenuModal
-        popModal={showModal}
-        exitModal={exitModal}
-        nav={props.navigation}
-      />
-    </View>
-  );
+          ))}
+        </ScrollView>
+        <MenuModal
+          popModal={showModal}
+          exitModal={exitModal}
+          nav={props.navigation}
+        />
+      </View>
+    );
+  } else {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+          backgroundColor: '#fff',
+        }}>
+        <ActivityIndicator size="large" color={colors.primary} />
+        <Text style={{fontFamily: 'AveriaSansLibre-Regular'}}>Loading...</Text>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

@@ -7,13 +7,64 @@ import {
   Text,
   Image,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import BackHeader from '../../components/BackHeader';
-import {colors} from '../../constants';
+import {colors, baseUrl} from '../../constants';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 
 const Withdraw = (props) => {
   const [index, setIndex] = useState(0);
+  const [acctNum, setAcctNum] = useState(null);
+  const [ifscCode, setCode] = useState(null);
+  const [name, setName] = useState(null);
+  const [amount, setAmt] = useState(null);
+  const [bankName, setBankName] = useState(null);
+  const [showIndicator, setIndicator] = useState(false);
+  const [mobileNum, setMobileNumber] = useState(null);
+
+  const submitBankDetails = async () => {
+    try {
+      setIndicator(true);
+      const value = await AsyncStorage.getItem('@user_token');
+      axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
+      const response = await axios.post(`${baseUrl}withdraw`, {
+        account_no: acctNum,
+        ifsc_code: ifscCode,
+        name,
+        amount,
+        bank_name: bankName,
+        mobile_no: mobileNum,
+      });
+      console.log(response.data);
+      alert(response.data.msg);
+      setIndicator(false);
+    } catch (error) {
+      console.log(error);
+      setIndicator(false);
+    }
+  };
+
+  const otherPayments = async () => {
+    try {
+      setIndicator(true);
+      const value = await AsyncStorage.getItem('@user_token');
+      axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
+      const response = await axios.post(`${baseUrl}withdraw`, {
+        amount,
+        mobile_no: mobileNum,
+      });
+      console.log(response.data);
+      alert(response.data.msg);
+      setIndicator(false);
+    } catch (error) {
+      console.log(error);
+      setIndicator(false);
+    }
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <BackHeader
@@ -66,6 +117,7 @@ const Withdraw = (props) => {
                   fontFamily: 'AveriaSansLibre-Regular',
                   fontSize: 16,
                 }}
+                onChangeText={(text) => setAmt(text)}
               />
             </View>
             <View style={styles.box}>
@@ -76,9 +128,11 @@ const Withdraw = (props) => {
                   fontFamily: 'AveriaSansLibre-Regular',
                   fontSize: 16,
                 }}
+                onChangeText={(text) => setMobileNumber(text)}
               />
             </View>
             <TouchableOpacity
+              onPress={() => otherPayments()}
               style={[
                 styles.redBox,
                 {
@@ -86,9 +140,17 @@ const Withdraw = (props) => {
                   alignSelf: 'center',
                   borderRadius: 50,
                   backgroundColor: colors.primary,
+                  flexDirection: 'row',
                 },
               ]}>
               <Text style={styles.boxText}>Submit</Text>
+              {showIndicator && (
+                <ActivityIndicator
+                  size={'small'}
+                  color={'#000'}
+                  style={{paddingLeft: 10}}
+                />
+              )}
             </TouchableOpacity>
           </View>
         )}
@@ -103,6 +165,7 @@ const Withdraw = (props) => {
                   fontFamily: 'AveriaSansLibre-Regular',
                   fontSize: 16,
                 }}
+                onChangeText={(text) => setAmt(text)}
               />
             </View>
             <View style={styles.box}>
@@ -113,9 +176,11 @@ const Withdraw = (props) => {
                   fontFamily: 'AveriaSansLibre-Regular',
                   fontSize: 16,
                 }}
+                onChangeText={(text) => setMobileNumber(text)}
               />
             </View>
             <TouchableOpacity
+              onPress={() => otherPayments()}
               style={[
                 styles.redBox,
                 {
@@ -123,9 +188,17 @@ const Withdraw = (props) => {
                   alignSelf: 'center',
                   borderRadius: 50,
                   backgroundColor: colors.primary,
+                  flexDirection: 'row',
                 },
               ]}>
               <Text style={styles.boxText}>Submit</Text>
+              {showIndicator && (
+                <ActivityIndicator
+                  size={'small'}
+                  color={'#000'}
+                  style={{paddingLeft: 10}}
+                />
+              )}
             </TouchableOpacity>
           </View>
         )}
@@ -140,6 +213,7 @@ const Withdraw = (props) => {
                   fontFamily: 'AveriaSansLibre-Regular',
                   fontSize: 16,
                 }}
+                onChangeText={(text) => setAmt(text)}
               />
             </View>
             <View style={styles.box}>
@@ -150,16 +224,19 @@ const Withdraw = (props) => {
                   fontFamily: 'AveriaSansLibre-Regular',
                   fontSize: 16,
                 }}
+                onChangeText={(text) => setAcctNum(text)}
+                keyboardType={'number-pad'}
               />
             </View>
             <View style={styles.box}>
               <TextInput
-                placeholder={'IFSE Code'}
+                placeholder={'IFSC Code'}
                 style={{
                   width: '100%',
                   fontFamily: 'AveriaSansLibre-Regular',
                   fontSize: 16,
                 }}
+                onChangeText={(text) => setCode(text)}
               />
             </View>
             <View style={styles.box}>
@@ -170,9 +247,33 @@ const Withdraw = (props) => {
                   fontFamily: 'AveriaSansLibre-Regular',
                   fontSize: 16,
                 }}
+                onChangeText={(text) => setName(text)}
+              />
+            </View>
+            <View style={styles.box}>
+              <TextInput
+                placeholder={'Bank Name'}
+                style={{
+                  width: '100%',
+                  fontFamily: 'AveriaSansLibre-Regular',
+                  fontSize: 16,
+                }}
+                onChangeText={(text) => setBankName(text)}
+              />
+            </View>
+            <View style={styles.box}>
+              <TextInput
+                placeholder={'Mobile Number'}
+                style={{
+                  width: '100%',
+                  fontFamily: 'AveriaSansLibre-Regular',
+                  fontSize: 16,
+                }}
+                onChangeText={(text) => setMobileNumber(text)}
               />
             </View>
             <TouchableOpacity
+              onPress={() => submitBankDetails()}
               style={[
                 styles.redBox,
                 {
@@ -180,9 +281,65 @@ const Withdraw = (props) => {
                   alignSelf: 'center',
                   borderRadius: 50,
                   backgroundColor: colors.primary,
+                  flexDirection: 'row',
                 },
               ]}>
               <Text style={styles.boxText}>Submit</Text>
+              {showIndicator && (
+                <ActivityIndicator
+                  size={'small'}
+                  color={'#000'}
+                  style={{paddingLeft: 10}}
+                />
+              )}
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {index === 3 && (
+          <View style={[styles.box, {marginVertical: 30}]}>
+            <View style={styles.box}>
+              <TextInput
+                placeholder={'Enter the Amount'}
+                style={{
+                  width: '100%',
+                  fontFamily: 'AveriaSansLibre-Regular',
+                  fontSize: 16,
+                }}
+                onChangeText={(text) => setAmt(text)}
+              />
+            </View>
+            <View style={styles.box}>
+              <TextInput
+                placeholder={'PhonePe Number'}
+                style={{
+                  width: '100%',
+                  fontFamily: 'AveriaSansLibre-Regular',
+                  fontSize: 16,
+                }}
+                onChangeText={(text) => setMobileNumber(text)}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={() => otherPayments()}
+              style={[
+                styles.redBox,
+                {
+                  width: '50%',
+                  alignSelf: 'center',
+                  borderRadius: 50,
+                  backgroundColor: colors.primary,
+                  flexDirection: 'row',
+                },
+              ]}>
+              <Text style={styles.boxText}>Submit</Text>
+              {showIndicator && (
+                <ActivityIndicator
+                  size={'small'}
+                  color={'#000'}
+                  style={{paddingLeft: 10}}
+                />
+              )}
             </TouchableOpacity>
           </View>
         )}
