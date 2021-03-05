@@ -186,6 +186,44 @@ const Withdraw = (props) => {
             </TouchableOpacity>
           </View>
         )}
+
+        {index === 3 && (
+          <View style={[styles.box, {marginVertical: 30}]}>
+            <View style={styles.box}>
+              <TextInput
+                placeholder={'Enter the Amount'}
+                style={{
+                  width: '100%',
+                  fontFamily: 'AveriaSansLibre-Regular',
+                  fontSize: 16,
+                }}
+              />
+            </View>
+            <View style={styles.box}>
+              <TextInput
+                placeholder={'PhonePe Id'}
+                style={{
+                  width: '100%',
+                  fontFamily: 'AveriaSansLibre-Regular',
+                  fontSize: 16,
+                }}
+              />
+            </View>
+            <TouchableOpacity
+              style={[
+                styles.redBox,
+                {
+                  width: '50%',
+                  alignSelf: 'center',
+                  borderRadius: 50,
+                  backgroundColor: colors.primary,
+                },
+              ]}>
+              <Text style={styles.boxText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
       </ScrollView>
     </View>
   );
