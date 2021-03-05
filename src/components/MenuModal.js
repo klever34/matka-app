@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -15,10 +15,11 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {colors} from '../constants';
 const height = Dimensions.get('window').height;
 import {AuthContext} from '../../context';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const MenuModal = ({exitModal, popModal, nav}) => {
   const {signOut} = React.useContext(AuthContext);
-
+  const [name, setName] = useState('');
   const closeModal = (item) => {
     exitModal(item);
   };
@@ -26,6 +27,14 @@ const MenuModal = ({exitModal, popModal, nav}) => {
   const logOut = () => {
     signOut();
   };
+
+  useEffect(() => {
+    async function getUser() {
+      let value = await AsyncStorage.getItem('@username');
+      setName(value);
+    }
+    getUser();
+  }, []);
 
   return (
     <View>
@@ -44,7 +53,7 @@ const MenuModal = ({exitModal, popModal, nav}) => {
             />
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <SimpleLineIcons name={'user'} size={82} color={'#000'} />
-              <Text style={styles.header}>heyakhil</Text>
+              <Text style={styles.header}>{name}</Text>
             </View>
             <AntDesign
               name={'logout'}

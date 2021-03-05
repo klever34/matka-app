@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   ScrollView,
@@ -7,10 +7,30 @@ import {
   Text,
 } from 'react-native';
 import BackHeader from '../../components/BackHeader';
-import {colors} from '../../constants';
+import {colors, baseUrl} from '../../constants';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import axios from "axios";
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Transactions = (props) => {
+  const [tranxArray, setTranxArray] = useState([]);
+  const [showView, setView] = useState(false);
+
+  useEffect(() => {
+    async function getTranx(){
+      try {
+        const value = await AsyncStorage.getItem('@user_token');
+        axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
+        const response = await axios.get(`${baseUrl}showTransactions`)
+        console.log(response.data.data.data);
+        setView(true);
+      } catch (error) {
+        console.log(error);
+        setView(true);
+      }
+    }
+    getTranx()
+  }, [])
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <BackHeader
