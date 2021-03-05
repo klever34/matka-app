@@ -13,13 +13,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 const Profile = (props) => {
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
-
+  const [balance, setBalance] = useState('')
   useEffect(() => {
     async function getUser() {
       let username = await AsyncStorage.getItem('@username');
       let usermobile = await AsyncStorage.getItem('@mobile_no');
+      let bal = await AsyncStorage.getItem('@wallet_bal');
       setName(username);
       setMobile(usermobile);
+      setBalance(bal)
     }
     getUser();
   }, []);
@@ -39,7 +41,7 @@ const Profile = (props) => {
           <Text style={styles.boxText}>MOBILE NUMBER: {mobile}</Text>
         </View>
         <View style={styles.box}>
-          <Text style={styles.boxText}>TOTAL BALANCE: 9838982</Text>
+          <Text style={styles.boxText}>TOTAL BALANCE: {balance}</Text>
         </View>
         <View style={styles.box}>
           <Text style={styles.boxText}>WITHDRAWS MADE: 24</Text>

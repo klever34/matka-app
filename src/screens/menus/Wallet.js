@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   ScrollView,
@@ -10,8 +10,18 @@ import {
 import BackHeader from '../../components/BackHeader';
 import {colors} from '../../constants';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Transactions = (props) => {
+  const [balance, setBalance] = useState('');
+
+  useEffect(() => {
+    async function getUser() {
+      let bal = await AsyncStorage.getItem('@wallet_bal');
+      setBalance(bal);
+    }
+    getUser();
+  }, []);
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <BackHeader
@@ -23,7 +33,7 @@ const Transactions = (props) => {
       <ScrollView style={{flex: 1}}>
         <View style={styles.headerRow}>
           <Text style={[styles.boxText, {fontSize: 26, textAlign: 'center'}]}>
-            Your Current Balance is{'\n'}₹500.00
+            Your Current Balance is{'\n'}₹{balance}
           </Text>
         </View>
         <View style={{marginVertical: 30}}>

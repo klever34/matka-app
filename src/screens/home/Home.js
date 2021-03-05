@@ -53,10 +53,11 @@ const Home = (props) => {
         axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
         const response = await axios.get(`${baseUrl}user`);
         console.log('user details');
-        console.log(response.data.data);
-        await AsyncStorage.setItem('@username', response.data.data.username);
-        await AsyncStorage.setItem('@mobile_no', response.data.data.mobile_no);
-        await AsyncStorage.setItem('@user_id', `${response.data.data.id}`);
+        console.log(response.data.data[0]);
+        await AsyncStorage.setItem('@username', response.data.data[0].username);
+        await AsyncStorage.setItem('@mobile_no', response.data.data[0].mobile_no);
+        await AsyncStorage.setItem('@user_id', `${response.data.data[0].id}`);
+        await AsyncStorage.setItem('@wallet_bal', `${response.data.data[0].amount}`);
       } catch (error) {
         console.log(error);
       }
@@ -200,10 +201,28 @@ const Home = (props) => {
     setLoading(true);
   };
 
+  const refreshPage = async () => {
+    setView(false);
+    try {
+      const value = await AsyncStorage.getItem('@user_token');
+      axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
+      const response = await axios.get(`${baseUrl}allMatch?page=1`);
+      console.log(response.data.data.data);
+      setMatches(response.data.data.data);
+      setView(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (showView) {
     return (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <Header popModal={popModal} nav={props.navigation} />
+        <Header
+          popModal={popModal}
+          nav={props.navigation}
+          refreshPage={refreshPage}
+        />
         <ScrollView style={{flex: 1, paddingHorizontal: 5}}>
           <View style={styles.headerBox}>
             <Text style={styles.headerText}>
