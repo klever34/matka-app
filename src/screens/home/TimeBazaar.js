@@ -33,9 +33,10 @@ const TimeBazaar = (props) => {
   const [data, setData] = useState([]);
   const [bidArray, setBidArray] = useState([]);
   const [showIndicator, setIndicator] = useState(false);
+  const [currentBiddingNumArray, setCurrentArray] = useState([]);
+
   let dataArray = [];
   // console.log({gameType});
-
   switch (gameType) {
     case 'single':
       dataArray = single;
@@ -65,6 +66,16 @@ const TimeBazaar = (props) => {
   }, []);
 
   const addToData = () => {
+    if (currentBiddingNumArray.includes(biddingNumber)) {
+      alert(
+        'Bidding Number already added.\nKindly select another bidding number.',
+      );
+      return;
+    }
+    setCurrentArray((currentBiddingNumArray) => [
+      ...currentBiddingNumArray,
+      parseInt(biddingNumber),
+    ]);
     if (biddingNumber === 'Select Bidding Number' || !amount) {
       alert('All fields are required');
       return;

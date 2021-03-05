@@ -46,6 +46,24 @@ const Home = (props) => {
     getMatches();
   }, [pageNumber]);
 
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const value = await AsyncStorage.getItem('@user_token');
+        axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
+        const response = await axios.get(`${baseUrl}user`);
+        console.log('user details');
+        console.log(response.data.data);
+        await AsyncStorage.setItem('@username', response.data.data.username);
+        await AsyncStorage.setItem('@mobile_no', response.data.data.mobile_no);
+        await AsyncStorage.setItem('@user_id', `${response.data.data.id}`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getUser();
+  }, []);
+
   const RT = (props) => (
     <Text
       style={{
@@ -66,7 +84,7 @@ const Home = (props) => {
   };
 
   const convertTime12to24 = (time12h) => {
-    const [time, modifier] = (time12h.toUpperCase()).split(' ');
+    const [time, modifier] = time12h.toUpperCase().split(' ');
     let [hours, minutes] = time.split(':');
     var today = new Date();
     var currentTime =
@@ -201,7 +219,7 @@ const Home = (props) => {
             />
             <Text style={styles.headerText}>
               WhatsApp Number of Our Admin{'\n'}
-              <RT>8754219865</RT>
+              <RT>7747866454</RT>
             </Text>
           </View>
           <FlatList
