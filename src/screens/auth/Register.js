@@ -29,12 +29,12 @@ const Register = (props) => {
       setOpacity(0.2);
       setIndicator(true);
       const response = await axios.post(`${baseUrl}register`, {
-        mobile_no: `+91${mobileNumber}`,
+        mobile_no: `${mobileNumber}`,
       });
       console.log(response.data);
       if (response.data.status) {
         props.navigation.push('OTPCode', {
-          mobile_no: `+91${mobileNumber}`,
+          mobile_no: `${mobileNumber}`,
         });
       }
       else{
