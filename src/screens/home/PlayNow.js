@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,9 +7,29 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import {colors} from '../../constants/index';
+import {colors, baseUrl} from '../../constants/index';
+import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const PlayNow = (props) => {
+  const {matchId} = props.route.params;
+  const [matchData, setMatchData] = useState({});
+
+  useEffect(() => {
+    async function getSingleMatch() {
+      try {
+        const value = await AsyncStorage.getItem('@user_token');
+        axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
+        const response = await axios.get(`${baseUrl}matchDetail/${matchId}`);
+        console.log(response.data.data);
+        setMatchData(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getSingleMatch();
+  }, []);
   return (
     <ScrollView style={{backgroundColor: '#fff', flex: 1}}>
       <View
@@ -27,15 +47,19 @@ const PlayNow = (props) => {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Text style={styles.header}>Time Bazaar Open Games</Text>
+            <Text style={styles.header}>{matchData.name} Open Games</Text>
           </View>
           <View style={styles.actions}>
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                props.navigation.push('TimeBazaar', {
-                  gameType: 'single',
-                })
+                matchData.status === true
+                  ? null
+                  : props.navigation.push('TimeBazaar', {
+                      gameType: 'single',
+                      matchData,
+                      gameStatus: 'open_game'
+                    })
               }>
               <View style={styles.iconBox}>
                 <Image
@@ -48,9 +72,13 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                props.navigation.push('TimeBazaar', {
-                  gameType: 'jodi',
-                })
+                matchData.status === true
+                  ? null
+                  : props.navigation.push('TimeBazaar', {
+                      gameType: 'jodi',
+                      matchData,
+                      gameStatus: 'open_game'
+                    })
               }>
               <View style={styles.iconBox}>
                 <Image
@@ -63,9 +91,13 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                props.navigation.push('TimeBazaar', {
-                  gameType: 'single-patti',
-                })
+                matchData.status === true
+                  ? null
+                  : props.navigation.push('TimeBazaar', {
+                      gameType: 'single-patti',
+                      matchData,
+                      gameStatus: 'open_game'
+                    })
               }>
               <View style={styles.iconBox}>
                 <Image
@@ -78,9 +110,13 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                props.navigation.push('TimeBazaar', {
-                  gameType: 'double-patti',
-                })
+                matchData.status === true
+                  ? null
+                  : props.navigation.push('TimeBazaar', {
+                      gameType: 'double-patti',
+                      matchData,
+                      gameStatus: 'open_game'
+                    })
               }>
               <View style={styles.iconBox}>
                 <Image
@@ -93,9 +129,13 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                props.navigation.push('TimeBazaar', {
-                  gameType: 'tripple-patti',
-                })
+                matchData.status === true
+                  ? null
+                  : props.navigation.push('TimeBazaar', {
+                      gameType: 'tripple-patti',
+                      matchData,
+                      gameStatus: 'open_game'
+                    })
               }>
               <View style={styles.iconBox}>
                 <Image
@@ -116,15 +156,19 @@ const PlayNow = (props) => {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Text style={styles.header}>Time Bazaar Closed Games</Text>
+            <Text style={styles.header}>{matchData.name} Closed Games</Text>
           </View>
           <View style={styles.actions}>
-          <TouchableOpacity
+            <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                props.navigation.push('TimeBazaar', {
-                  gameType: 'single',
-                })
+                matchData.status === '1'
+                  ? null
+                  : props.navigation.push('TimeBazaar', {
+                      gameType: 'single',
+                      matchData,
+                      gameStatus: 'close_game'
+                    })
               }>
               <View style={styles.iconBox}>
                 <Image
@@ -137,9 +181,13 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                props.navigation.push('TimeBazaar', {
-                  gameType: 'jodi',
-                })
+                matchData.status === '1'
+                  ? null
+                  : props.navigation.push('TimeBazaar', {
+                      gameType: 'jodi',
+                      matchData,
+                      gameStatus: 'close_game'
+                    })
               }>
               <View style={styles.iconBox}>
                 <Image
@@ -152,9 +200,13 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                props.navigation.push('TimeBazaar', {
-                  gameType: 'single-patti',
-                })
+                matchData.status === '1'
+                  ? null
+                  : props.navigation.push('TimeBazaar', {
+                      gameType: 'single-patti',
+                      matchData,
+                      gameStatus: 'close_game'
+                    })
               }>
               <View style={styles.iconBox}>
                 <Image
@@ -167,9 +219,13 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                props.navigation.push('TimeBazaar', {
-                  gameType: 'double-patti',
-                })
+                matchData.status === '1'
+                  ? null
+                  : props.navigation.push('TimeBazaar', {
+                      gameType: 'double-patti',
+                      matchData,
+                      gameStatus: 'close_game'
+                    })
               }>
               <View style={styles.iconBox}>
                 <Image
@@ -182,9 +238,13 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                props.navigation.push('TimeBazaar', {
-                  gameType: 'tripple-patti',
-                })
+                matchData.status === '1'
+                  ? null
+                  : props.navigation.push('TimeBazaar', {
+                      gameType: 'tripple-patti',
+                      matchData,
+                      gameStatus: 'close_game'
+                    })
               }>
               <View style={styles.iconBox}>
                 <Image
