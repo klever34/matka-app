@@ -82,12 +82,12 @@ const MenuModal = ({exitModal, popModal, nav}) => {
               style={styles.box}
               onPress={() => {
                 closeModal(true);
-                nav.push('Transactions');
+                nav.push('GameHistory');
               }}>
               <View style={styles.iconBox}>
-                <FontAwesome5 name={'file-alt'} size={42} color={'#000'} />
+                <FontAwesome5 name={'history'} size={42} color={'#000'} />
               </View>
-              <Text style={styles.smallText}>Transactions</Text>
+              <Text style={styles.smallText}>Game History</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.box}>
               <View style={styles.iconBox}>
@@ -123,7 +123,11 @@ const MenuModal = ({exitModal, popModal, nav}) => {
                 nav.push('Agent');
               }}>
               <View style={styles.iconBox}>
-                <MaterialIcons name={'support-agent'} size={42} color={'#000'} />
+                <MaterialIcons
+                  name={'support-agent'}
+                  size={42}
+                  color={'#000'}
+                />
               </View>
               <Text style={styles.smallText}>Be an Agent</Text>
             </TouchableOpacity>

@@ -20,6 +20,7 @@ import CreateProfile from './src/screens/auth/CreateProfile';
 import Agent from './src/screens/menus/Agent';
 import {fcmService} from './src/alerts/FCMService';
 import {localNotificationService} from './src/alerts/LocalNotificationService';
+import GameHistory from './src/screens/menus/GameHistory';
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -43,6 +44,7 @@ const HomeStackScreen = () => (
     <HomeStack.Screen name="TimeBazaar" component={TimeBazaar} />
     <HomeStack.Screen name="Withdraw" component={Withdraw} />
     <HomeStack.Screen name="Agent" component={Agent} />
+    <HomeStack.Screen name="GameHistory" component={GameHistory} />
   </HomeStack.Navigator>
 );
 

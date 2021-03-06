@@ -28,7 +28,7 @@ const Transactions = (props) => {
         navigation={props.navigation}
         title={'Wallet'}
         showText={false}
-        smallTitle={""}
+        smallTitle={''}
       />
       <ScrollView style={{flex: 1}}>
         <View style={styles.headerRow}>
@@ -36,7 +36,43 @@ const Transactions = (props) => {
             Your Current Balance is{'\n'}₹{balance}
           </Text>
         </View>
-        <View style={{marginVertical: 30}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+            marginTop: 30,
+          }}>
+          <TouchableOpacity
+            onPress={() => props.navigation.push('Wallet')}
+            style={{
+              backgroundColor: '#28E524',
+              padding: 10,
+              width: '40%',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={{color: '#fff', fontFamily: 'AveriaSansLibre-Regular'}}>
+              Add Money
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.push('Withdraw')}
+            style={{
+              backgroundColor: '#E53C24',
+              padding: 10,
+              width: '40%',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={{color: '#fff', fontFamily: 'AveriaSansLibre-Regular'}}>
+              Withdraw
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {/* <View style={{marginVertical: 30}}>
           <View
             style={{
               flexDirection: 'row',
@@ -119,7 +155,7 @@ const Transactions = (props) => {
             Pay the money in whatever mode you want to send. and take the
             screenshot and send it with your username to the whatsapp number: 7747866454
           </Text>
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );

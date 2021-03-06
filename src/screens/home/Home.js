@@ -88,7 +88,6 @@ const Home = (props) => {
   };
 
   const popModal = (mode) => {
-    console.log('ckcickkkk');
     setShowModal(true);
   };
 
@@ -188,7 +187,7 @@ const Home = (props) => {
               onPress={() =>
                 props.navigation.push('PlayNow', {
                   matchId: item.id,
-                  matchName: item.name
+                  matchName: item.name,
                 })
               }>
               <Text
@@ -239,7 +238,7 @@ const Home = (props) => {
                 Welcome to Matka Games. Let's Play Matka Online
               </Text>
             </View>
-            <View style={styles.headerBox}>
+            {/* <View style={styles.headerBox}>
               <MaterialCommunityIcons
                 name={'whatsapp'}
                 size={30}
@@ -250,6 +249,55 @@ const Home = (props) => {
                 WhatsApp Number of Our Admin{'\n'}
                 <RT>7747866454</RT>
               </Text>
+            </View> */}
+            <View style={styles.headerBox}>
+              <Text style={[styles.headerText, {color: '#000', fontSize: 22}]}>
+                Add/Withdraw Money
+              </Text>
+              <Text style={[styles.headerText, {color: '#000'}]}>
+                Click here to get redirected to WhatsApp
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-evenly',
+                }}>
+                <TouchableOpacity
+                  onPress={() => props.navigation.push('Wallet')}
+                  style={{
+                    backgroundColor: '#28E524',
+                    padding: 10,
+                    width: '40%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontFamily: 'AveriaSansLibre-Regular',
+                    }}>
+                    Add Money
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => props.navigation.push('Withdraw')}
+                  style={{
+                    backgroundColor: '#E53C24',
+                    padding: 10,
+                    width: '40%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontFamily: 'AveriaSansLibre-Regular',
+                    }}>
+                    Withdraw
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
             <FlatList
               style={{flex: 1}}
