@@ -39,7 +39,7 @@ const Agent = (props) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
       const response = await axios.get(`${baseUrl}becomeAgent`);
       console.log(response.data);
-      setStatus(false)
+      setStatus(false);
       alert(response.data.msg);
       setLoading(false);
     } catch (error) {
@@ -82,71 +82,75 @@ const Agent = (props) => {
             <Text style={styles.boxText}>Become an Agent</Text>
           </TouchableOpacity>
         )}
-        <View
-          style={[
-            styles.redBox,
-            {
-              width: '95%',
-              alignSelf: 'center',
-              borderRadius: 50,
-              backgroundColor: colors.primary,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 30,
-            },
-          ]}>
-          <Text style={styles.boxText}>Money Distribution</Text>
-          <Image
-            source={require('../../assets/images/share.png')}
-            style={{height: 40, width: 40, resizeMode: 'contain'}}
-          />
-        </View>
-        <View style={[{margin: 20}]}>
-          <View style={styles.box}>
-            <TextInput
-              placeholder={'Username'}
-              style={{
-                width: '100%',
-                fontFamily: 'AveriaSansLibre-Regular',
-                fontSize: 16,
-              }}
-              onChangeText={(text) => setUsername(text)}
-            />
-          </View>
-          <View style={styles.box}>
-            <TextInput
-              placeholder={'Amount'}
-              style={{
-                width: '100%',
-                fontFamily: 'AveriaSansLibre-Regular',
-                fontSize: 16,
-              }}
-              onChangeText={(text) => setAmt(text)}
-              keyboardType="number-pad"
-            />
-          </View>
-          <TouchableOpacity
-            onPress={() => otherPayments()}
-            style={[
-              styles.redBox,
-              {
-                width: '100%',
-                alignSelf: 'center',
-                borderRadius: 50,
-                backgroundColor: colors.primary,
-                flexDirection: 'row',
-              },
-            ]}>
-            <Text style={styles.boxText}>Submit</Text>
-            {showIndicator && (
-              <ActivityIndicator
-                size={'small'}
-                color={'#000'}
-                style={{paddingLeft: 10}}
+        {!status && (
+          <View>
+            <View
+              style={[
+                styles.redBox,
+                {
+                  width: '95%',
+                  alignSelf: 'center',
+                  borderRadius: 50,
+                  backgroundColor: colors.primary,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  padding: 30,
+                },
+              ]}>
+              <Text style={styles.boxText}>Money Distribution</Text>
+              <Image
+                source={require('../../assets/images/share.png')}
+                style={{height: 40, width: 40, resizeMode: 'contain'}}
               />
-            )}
-          </TouchableOpacity>
-        </View>
+            </View>
+            <View style={[{margin: 20}]}>
+              <View style={styles.box}>
+                <TextInput
+                  placeholder={'Username'}
+                  style={{
+                    width: '100%',
+                    fontFamily: 'AveriaSansLibre-Regular',
+                    fontSize: 16,
+                  }}
+                  onChangeText={(text) => setUsername(text)}
+                />
+              </View>
+              <View style={styles.box}>
+                <TextInput
+                  placeholder={'Amount'}
+                  style={{
+                    width: '100%',
+                    fontFamily: 'AveriaSansLibre-Regular',
+                    fontSize: 16,
+                  }}
+                  onChangeText={(text) => setAmt(text)}
+                  keyboardType="number-pad"
+                />
+              </View>
+              <TouchableOpacity
+                onPress={() => otherPayments()}
+                style={[
+                  styles.redBox,
+                  {
+                    width: '100%',
+                    alignSelf: 'center',
+                    borderRadius: 50,
+                    backgroundColor: colors.primary,
+                    flexDirection: 'row',
+                  },
+                ]}>
+                <Text style={styles.boxText}>Submit</Text>
+                {showIndicator && (
+                  <ActivityIndicator
+                    size={'small'}
+                    color={'#000'}
+                    style={{paddingLeft: 10}}
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
       </ScrollView>
     </View>
   );

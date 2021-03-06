@@ -66,6 +66,7 @@ const Home = (props) => {
           `${response.data.data[0].amount}`,
         );
         await AsyncStorage.setItem('@user-agent', response.data.data[0].agent);
+        await AsyncStorage.setItem('@tranx-number', response.data.data[0].nooftransactions);
       } catch (error) {
         console.log(error.response);
       }

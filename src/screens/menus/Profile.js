@@ -13,18 +13,23 @@ import AsyncStorage from '@react-native-community/async-storage';
 const Profile = (props) => {
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
-  const [balance, setBalance] = useState('')
+  const [balance, setBalance] = useState('');
+  const [tranx, setTranx] = useState('');
+
   useEffect(() => {
     async function getUser() {
       let username = await AsyncStorage.getItem('@username');
       let usermobile = await AsyncStorage.getItem('@mobile_no');
       let bal = await AsyncStorage.getItem('@wallet_bal');
+      let trans = await AsyncStorage.getItem('@tranx-number');
       setName(username);
       setMobile(usermobile);
-      setBalance(bal)
+      setBalance(bal);
+      setTranx(trans);
     }
     getUser();
   }, []);
+  
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <BackHeader
@@ -44,7 +49,7 @@ const Profile = (props) => {
           <Text style={styles.boxText}>TOTAL BALANCE: {balance}</Text>
         </View>
         <View style={styles.box}>
-          <Text style={styles.boxText}>WITHDRAWS MADE: 24</Text>
+          <Text style={styles.boxText}>WITHDRAWS MADE: {tranx}</Text>
         </View>
       </ScrollView>
     </View>
