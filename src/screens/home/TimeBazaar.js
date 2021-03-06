@@ -21,11 +21,12 @@ import {
 } from '../../constants';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 
 const TimeBazaar = (props) => {
-  const {gameType, matchData, gameStatus} = props.route.params;
+  const {gameType, matchData, gameStatus, matchName} = props.route.params;
   const [biddingNumber, setbiddingNumber] = useState('Select Bidding Number');
   const [date, setDate] = useState('');
   const [popModal, setModal] = useState(false);
@@ -34,24 +35,30 @@ const TimeBazaar = (props) => {
   const [bidArray, setBidArray] = useState([]);
   const [showIndicator, setIndicator] = useState(false);
   const [currentBiddingNumArray, setCurrentArray] = useState([]);
-
+  const [stateDataArray, setStateArray] = useState(null);
+  const [showView, setView] = useState(false);
   let dataArray = [];
   // console.log({gameType});
   switch (gameType) {
     case 'single':
       dataArray = single;
+      // setStateArray(dataArray);
       break;
     case 'jodi':
       dataArray = jodi;
+      // setStateArray(dataArray);
       break;
     case 'single-patti':
       dataArray = singlePatti;
+      // setStateArray(dataArray);
       break;
     case 'double-patti':
       dataArray = doublePatti;
+      // setStateArray(dataArray);
       break;
     case 'tripple-patti':
       dataArray = tripplePatti;
+      // setStateArray(dataArray);
       break;
 
     default:
@@ -63,10 +70,13 @@ const TimeBazaar = (props) => {
     const day = new Date().getDay();
     const month = new Date().getMonth();
     setDate(`${day}-${month + 1}-${year}`);
+    setStateArray(dataArray);
+    setView(true);
   }, []);
 
   const addToData = () => {
-    if (currentBiddingNumArray.includes(biddingNumber)) {
+    console.log(currentBiddingNumArray);
+    if (currentBiddingNumArray.includes(parseInt(biddingNumber))) {
       alert(
         'Bidding Number already added.\nKindly select another bidding number.',
       );
@@ -123,11 +133,33 @@ const TimeBazaar = (props) => {
     }
   };
 
+  const removeBid = (obj) => {
+    let newArr = bidArray.filter(function (item) {
+      return (
+        item[0] !== parseInt(obj.digit) && item[1] !== parseInt(obj.amount)
+      );
+    });
+    setBidArray(newArr);
+
+    let newArr2 = data.filter(function (item) {
+      return (
+        item.digit !== obj.digit
+      );
+    });
+    setData(newArr2);
+
+    let newArr3 = currentBiddingNumArray.filter(item => item !== parseInt(obj.digit));
+    setCurrentArray(newArr3);
+
+    console.log('bid array');
+    console.log(bidArray);
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <BackHeader
         navigation={props.navigation}
-        title={'Time Bazaar'}
+        title={matchName}
         showText={true}
         smallTitle={gameType}
       />
@@ -139,7 +171,7 @@ const TimeBazaar = (props) => {
           ]}>
           <Text style={styles.boxText}>{date}</Text>
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.borderDiv}
           onPress={() => setModal(true)}>
           <Text style={[styles.boxText, {marginLeft: 10}]}>
@@ -151,7 +183,25 @@ const TimeBazaar = (props) => {
             color={'#000'}
             style={{paddingLeft: 15}}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+
+        <View style={styles.borderDiv}>
+          <TextInput
+            placeholder={'Select Bidding Number'}
+            style={[styles.boxText, {marginLeft: 10}]}
+            onChangeText={(text) => setbiddingNumber(text)}
+          />
+          {showView && stateDataArray.includes(parseInt(biddingNumber)) ? (
+            <FontAwesome5
+              name={'check-circle'}
+              size={22}
+              color={colors.primary}
+              style={{paddingLeft: 15}}
+            />
+          ) : (
+            <Text></Text>
+          )}
+        </View>
 
         <View
           style={[
@@ -199,10 +249,25 @@ const TimeBazaar = (props) => {
                 {item.digit}
               </Text>
             </View>
-            <View style={[styles.nobox, {backgroundColor: 'transparent'}]}>
+            <View
+              style={[
+                styles.nobox,
+                {
+                  backgroundColor: 'transparent',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-evenly',
+                },
+              ]}>
               <Text style={[styles.noboxText, {fontSize: 18}]}>
                 ₹ {item.amount}
               </Text>
+              <FontAwesome5
+                name={'times'}
+                size={22}
+                color={'#000'}
+                onPress={() => removeBid(item)}
+              />
             </View>
           </View>
         ))}

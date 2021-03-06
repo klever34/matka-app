@@ -12,7 +12,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const PlayNow = (props) => {
-  const {matchId} = props.route.params;
+  const {matchId, matchName} = props.route.params;
   const [matchData, setMatchData] = useState({});
 
   useEffect(() => {
@@ -58,7 +58,8 @@ const PlayNow = (props) => {
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'single',
                       matchData,
-                      gameStatus: 'open_game'
+                      gameStatus: 'open_game',
+                      matchName
                     })
               }>
               <View style={styles.iconBox}>
@@ -77,7 +78,8 @@ const PlayNow = (props) => {
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'jodi',
                       matchData,
-                      gameStatus: 'open_game'
+                      gameStatus: 'open_game',
+                      matchName
                     })
               }>
               <View style={styles.iconBox}>
@@ -96,7 +98,8 @@ const PlayNow = (props) => {
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'single-patti',
                       matchData,
-                      gameStatus: 'open_game'
+                      gameStatus: 'open_game',
+                      matchName
                     })
               }>
               <View style={styles.iconBox}>
@@ -115,7 +118,8 @@ const PlayNow = (props) => {
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'double-patti',
                       matchData,
-                      gameStatus: 'open_game'
+                      gameStatus: 'open_game',
+                      matchName
                     })
               }>
               <View style={styles.iconBox}>
@@ -134,7 +138,8 @@ const PlayNow = (props) => {
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'tripple-patti',
                       matchData,
-                      gameStatus: 'open_game'
+                      gameStatus: 'open_game',
+                      matchName
                     })
               }>
               <View style={styles.iconBox}>
@@ -167,7 +172,8 @@ const PlayNow = (props) => {
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'single',
                       matchData,
-                      gameStatus: 'close_game'
+                      gameStatus: 'close_game',
+                      matchName
                     })
               }>
               <View style={styles.iconBox}>
@@ -186,7 +192,8 @@ const PlayNow = (props) => {
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'single-patti',
                       matchData,
-                      gameStatus: 'close_game'
+                      gameStatus: 'close_game',
+                      matchName
                     })
               }>
               <View style={styles.iconBox}>
@@ -205,7 +212,8 @@ const PlayNow = (props) => {
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'double-patti',
                       matchData,
-                      gameStatus: 'close_game'
+                      gameStatus: 'close_game',
+                      matchName
                     })
               }>
               <View style={styles.iconBox}>
@@ -224,7 +232,8 @@ const PlayNow = (props) => {
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'tripple-patti',
                       matchData,
-                      gameStatus: 'close_game'
+                      gameStatus: 'close_game',
+                      matchName
                     })
               }>
               <View style={styles.iconBox}>

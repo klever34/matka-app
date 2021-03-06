@@ -30,7 +30,7 @@ const Home = (props) => {
         const response = await axios.get(
           `${baseUrl}allMatch?page=${pageNumber}`,
         );
-        console.log(response.data.data.data);
+        console.log(response.data.status);
         if (pageNumber <= 1) {
           setMatches(response.data.data.data);
         } else if (pageNumber > 1) {
@@ -41,6 +41,7 @@ const Home = (props) => {
         setLoading(false);
       } catch (error) {
         console.log(error);
+        setView(true);
       }
     }
     getMatches();
@@ -55,9 +56,15 @@ const Home = (props) => {
         console.log('user details');
         console.log(response.data.data[0]);
         await AsyncStorage.setItem('@username', response.data.data[0].username);
-        await AsyncStorage.setItem('@mobile_no', response.data.data[0].mobile_no);
+        await AsyncStorage.setItem(
+          '@mobile_no',
+          response.data.data[0].mobile_no,
+        );
         await AsyncStorage.setItem('@user_id', `${response.data.data[0].id}`);
-        await AsyncStorage.setItem('@wallet_bal', `${response.data.data[0].amount}`);
+        await AsyncStorage.setItem(
+          '@wallet_bal',
+          `${response.data.data[0].amount}`,
+        );
       } catch (error) {
         console.log(error);
       }
@@ -81,6 +88,7 @@ const Home = (props) => {
   };
 
   const popModal = (mode) => {
+    console.log('ckcickkkk');
     setShowModal(true);
   };
 
@@ -180,6 +188,7 @@ const Home = (props) => {
               onPress={() =>
                 props.navigation.push('PlayNow', {
                   matchId: item.id,
+                  matchName: item.name
                 })
               }>
               <Text
@@ -216,14 +225,59 @@ const Home = (props) => {
   };
 
   if (showView) {
-    return (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <Header
-          popModal={popModal}
-          nav={props.navigation}
-          refreshPage={refreshPage}
-        />
-        <ScrollView style={{flex: 1, paddingHorizontal: 5}}>
+    if (matches.length > 0) {
+      return (
+        <View style={{flex: 1, backgroundColor: '#fff'}}>
+          <Header
+            popModal={popModal}
+            nav={props.navigation}
+            refreshPage={refreshPage}
+          />
+          <ScrollView style={{flex: 1, paddingHorizontal: 5}}>
+            <View style={styles.headerBox}>
+              <Text style={styles.headerText}>
+                Welcome to Matka Games. Let's Play Matka Online
+              </Text>
+            </View>
+            <View style={styles.headerBox}>
+              <MaterialCommunityIcons
+                name={'whatsapp'}
+                size={30}
+                color={'#000'}
+                style={{alignSelf: 'center'}}
+              />
+              <Text style={styles.headerText}>
+                WhatsApp Number of Our Admin{'\n'}
+                <RT>7747866454</RT>
+              </Text>
+            </View>
+            <FlatList
+              style={{flex: 1}}
+              data={matches}
+              renderItem={renderMatches}
+              keyExtractor={(item, index) => index.toString()}
+              onEndReached={handleMoreData}
+              onEndReachedThreshold={0}
+            />
+            {isLoading && (
+              <ActivityIndicator size="large" color={colors.primary} />
+            )}
+          </ScrollView>
+          <MenuModal
+            popModal={showModal}
+            exitModal={exitModal}
+            nav={props.navigation}
+          />
+        </View>
+      );
+    } else {
+      return (
+        <View style={{flex: 1, backgroundColor: '#fff'}}>
+          <Header
+            popModal={popModal}
+            nav={props.navigation}
+            refreshPage={refreshPage}
+          />
           <View style={styles.headerBox}>
             <Text style={styles.headerText}>
               Welcome to Matka Games. Let's Play Matka Online
@@ -241,25 +295,25 @@ const Home = (props) => {
               <RT>7747866454</RT>
             </Text>
           </View>
-          <FlatList
-            style={{flex: 1}}
-            data={matches}
-            renderItem={renderMatches}
-            keyExtractor={(item, index) => index.toString()}
-            onEndReached={handleMoreData}
-            onEndReachedThreshold={0}
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              flex: 1,
+              backgroundColor: '#fff',
+            }}>
+            <Text style={{fontFamily: 'AveriaSansLibre-Regular', fontSize: 24}}>
+              No Data Found...
+            </Text>
+          </View>
+          <MenuModal
+            popModal={showModal}
+            exitModal={exitModal}
+            nav={props.navigation}
           />
-          {isLoading && (
-            <ActivityIndicator size="large" color={colors.primary} />
-          )}
-        </ScrollView>
-        <MenuModal
-          popModal={showModal}
-          exitModal={exitModal}
-          nav={props.navigation}
-        />
-      </View>
-    );
+        </View>
+      );
+    }
   } else {
     return (
       <View

@@ -17,6 +17,9 @@ import TimeBazaar from './src/screens/home/TimeBazaar';
 import Withdraw from './src/screens/menus/Withdraw';
 import ForgotPassword from './src/screens/auth/ForgotPassword';
 import CreateProfile from './src/screens/auth/CreateProfile';
+import Agent from './src/screens/menus/Agent';
+import {fcmService} from './src/alerts/FCMService';
+import {localNotificationService} from './src/alerts/LocalNotificationService';
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -39,6 +42,7 @@ const HomeStackScreen = () => (
     <HomeStack.Screen name="Wallet" component={Wallet} />
     <HomeStack.Screen name="TimeBazaar" component={TimeBazaar} />
     <HomeStack.Screen name="Withdraw" component={Withdraw} />
+    <HomeStack.Screen name="Agent" component={Agent} />
   </HomeStack.Navigator>
 );
 
@@ -67,6 +71,39 @@ const RootStackScreen = ({userToken}) => (
 const App = () => {
   const [showSplash, setShowSplash] = React.useState(null);
   const [userToken, setUserToken] = React.useState(null);
+
+  useEffect(() => {
+    fcmService.registerAppWithFCM();
+    // fcmService.subscribeToTournament();
+    fcmService.register(onRegister, onNotification, onOpenNotification);
+    localNotificationService.configure(onOpenNotification);
+
+    async function onRegister(token) {
+      console.log({token});
+      // await AsyncStorage.setItem(`@firebase_token`, token);
+    }
+
+    function onNotification(notify) {
+      const options = {
+        soundName: 'default',
+        playSound: true,
+      };
+      localNotificationService.showNotification(
+        new Date().getMilliseconds(),
+        notify.title,
+        notify.body,
+        notify,
+        options,
+      );
+    }
+
+    function onOpenNotification(notify) {}
+
+    return () => {
+      fcmService.unRegister();
+      localNotificationService.unregister();
+    };
+  }, []);
 
   useEffect(() => {
     async function getSplashStatus() {

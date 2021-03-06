@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "1006420851087",
+    "firebase_url": "https://everlove-1c605.firebaseio.com",
+    "project_id": "everlove-1c605",
+    "storage_bucket": "everlove-1c605.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006420851087:android:35aa741ed5fd386af973fa",
+        "android_client_info": {
+          "package_name": "com.documentapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006420851087-8ujebndegi0u7i9ksgquinp17vjo4nrv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlO2wXaqsUk0MnST0RpSJ-y8jRbyNwtDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006420851087-8ujebndegi0u7i9ksgquinp17vjo4nrv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006420851087:android:e504056ab96acf0ff973fa",
+        "android_client_info": {
+          "package_name": "com.funlegend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006420851087-8ujebndegi0u7i9ksgquinp17vjo4nrv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlO2wXaqsUk0MnST0RpSJ-y8jRbyNwtDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006420851087-8ujebndegi0u7i9ksgquinp17vjo4nrv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006420851087:android:adcf1c309b6072faf973fa",
+        "android_client_info": {
+          "package_name": "com.matkaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006420851087-8ujebndegi0u7i9ksgquinp17vjo4nrv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlO2wXaqsUk0MnST0RpSJ-y8jRbyNwtDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006420851087-8ujebndegi0u7i9ksgquinp17vjo4nrv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -116,6 +116,17 @@ const MenuModal = ({exitModal, popModal, nav}) => {
               </View>
               <Text style={styles.smallText}>How to Play</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() => {
+                closeModal(true);
+                nav.push('Agent');
+              }}>
+              <View style={styles.iconBox}>
+                <MaterialIcons name={'support-agent'} size={42} color={'#000'} />
+              </View>
+              <Text style={styles.smallText}>Be an Agent</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.box}>
               <View style={styles.iconBox}>
                 <FontAwesome5 name={'share-alt'} size={42} color={'#000'} />
