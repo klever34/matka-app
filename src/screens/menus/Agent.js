@@ -19,19 +19,32 @@ const Agent = (props) => {
   const [amt, setAmt] = useState(null);
   const [username, setUsername] = useState(null);
   const [showIndicator, setIndicator] = useState(false);
+  const [status, setStatus] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
-  const submitBankDetails = async () => {
+  useEffect(() => {
+    async function getAgentStatus() {
+      const value = await AsyncStorage.getItem('@user-agent');
+      if (value == '0') {
+        setStatus(true);
+      }
+    }
+    getAgentStatus();
+  }, []);
+
+  const becomeAgent = async () => {
     try {
-      setIndicator(true);
+      setLoading(true);
       const value = await AsyncStorage.getItem('@user_token');
       axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
-      const response = await axios.post(`${baseUrl}withdraw`, {});
+      const response = await axios.get(`${baseUrl}becomeAgent`);
       console.log(response.data);
+      setStatus(false)
       alert(response.data.msg);
-      setIndicator(false);
+      setLoading(false);
     } catch (error) {
       console.log(error);
-      setIndicator(false);
+      setLoading(false);
     }
   };
 
@@ -44,6 +57,31 @@ const Agent = (props) => {
         smallTitle={''}
       />
       <ScrollView style={{flex: 1}}>
+        {isLoading && (
+          <ActivityIndicator
+            size={'small'}
+            color={'#000'}
+            style={{margin: 10, alignSelf: 'center'}}
+          />
+        )}
+        {status && (
+          <TouchableOpacity
+            onPress={() => becomeAgent()}
+            style={[
+              styles.redBox,
+              {
+                width: '95%',
+                alignSelf: 'center',
+                borderRadius: 50,
+                backgroundColor: colors.primary,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                padding: 30,
+              },
+            ]}>
+            <Text style={styles.boxText}>Become an Agent</Text>
+          </TouchableOpacity>
+        )}
         <View
           style={[
             styles.redBox,
@@ -54,7 +92,7 @@ const Agent = (props) => {
               backgroundColor: colors.primary,
               flexDirection: 'row',
               justifyContent: 'space-between',
-              padding: 30
+              padding: 30,
             },
           ]}>
           <Text style={styles.boxText}>Money Distribution</Text>

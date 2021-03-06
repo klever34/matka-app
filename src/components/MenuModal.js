@@ -95,7 +95,7 @@ const MenuModal = ({exitModal, popModal, nav}) => {
               </View>
               <Text style={styles.smallText}>Password</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.box}
               onPress={() => {
                 closeModal(true);
@@ -109,7 +109,7 @@ const MenuModal = ({exitModal, popModal, nav}) => {
                 />
               </View>
               <Text style={styles.smallText}>Withdraw</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity style={styles.box}>
               <View style={styles.iconBox}>
                 <FontAwesome5 name={'info-circle'} size={42} color={'#000'} />

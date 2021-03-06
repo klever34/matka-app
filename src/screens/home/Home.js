@@ -65,8 +65,9 @@ const Home = (props) => {
           '@wallet_bal',
           `${response.data.data[0].amount}`,
         );
+        await AsyncStorage.setItem('@user-agent', response.data.data[0].agent);
       } catch (error) {
-        console.log(error);
+        console.log(error.response);
       }
     }
     getUser();
@@ -205,6 +206,7 @@ const Home = (props) => {
   };
 
   const handleMoreData = () => {
+    console.log('called');
     setPageNumber(pageNumber + 1);
     setLoading(true);
   };
@@ -232,7 +234,7 @@ const Home = (props) => {
             nav={props.navigation}
             refreshPage={refreshPage}
           />
-          <ScrollView style={{flex: 1, paddingHorizontal: 5}}>
+          <View style={{flex: 1, paddingHorizontal: 5}}>
             <View style={styles.headerBox}>
               <Text style={styles.headerText}>
                 Welcome to Matka Games. Let's Play Matka Online
@@ -299,18 +301,20 @@ const Home = (props) => {
                 </TouchableOpacity>
               </View>
             </View>
-            <FlatList
-              style={{flex: 1}}
-              data={matches}
-              renderItem={renderMatches}
-              keyExtractor={(item, index) => index.toString()}
-              onEndReached={handleMoreData}
-              onEndReachedThreshold={0}
-            />
+            <View style={{flex: 1}}>
+              <FlatList
+                style={{flex: 1}}
+                data={matches}
+                renderItem={renderMatches}
+                keyExtractor={(item, index) => index.toString()}
+                onEndReached={handleMoreData}
+                onEndReachedThreshold={0.5}
+              />
+            </View>
             {isLoading && (
               <ActivityIndicator size="large" color={colors.primary} />
             )}
-          </ScrollView>
+          </View>
           <MenuModal
             popModal={showModal}
             exitModal={exitModal}
@@ -332,16 +336,53 @@ const Home = (props) => {
             </Text>
           </View>
           <View style={styles.headerBox}>
-            <MaterialCommunityIcons
-              name={'whatsapp'}
-              size={30}
-              color={'#000'}
-              style={{alignSelf: 'center'}}
-            />
-            <Text style={styles.headerText}>
-              WhatsApp Number of Our Admin{'\n'}
-              <RT>7747866454</RT>
+            <Text style={[styles.headerText, {color: '#000', fontSize: 22}]}>
+              Add/Withdraw Money
             </Text>
+            <Text style={[styles.headerText, {color: '#000'}]}>
+              Click here to get redirected to WhatsApp
+            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-evenly',
+              }}>
+              <TouchableOpacity
+                onPress={() => props.navigation.push('Wallet')}
+                style={{
+                  backgroundColor: '#28E524',
+                  padding: 10,
+                  width: '40%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: '#fff',
+                    fontFamily: 'AveriaSansLibre-Regular',
+                  }}>
+                  Add Money
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => props.navigation.push('Withdraw')}
+                style={{
+                  backgroundColor: '#E53C24',
+                  padding: 10,
+                  width: '40%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: '#fff',
+                    fontFamily: 'AveriaSansLibre-Regular',
+                  }}>
+                  Withdraw
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <View
             style={{
