@@ -184,25 +184,6 @@ const PlayNow = (props) => {
                 matchData.status === '1'
                   ? null
                   : props.navigation.push('TimeBazaar', {
-                      gameType: 'jodi',
-                      matchData,
-                      gameStatus: 'close_game'
-                    })
-              }>
-              <View style={styles.iconBox}>
-                <Image
-                  source={require('../../assets/images/Vector.png')}
-                  style={{height: 70, width: 50, resizeMode: 'contain'}}
-                />
-              </View>
-              <Text style={styles.smallText}>Jodi</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.box}
-              onPress={() =>
-                matchData.status === '1'
-                  ? null
-                  : props.navigation.push('TimeBazaar', {
                       gameType: 'single-patti',
                       matchData,
                       gameStatus: 'close_game'
