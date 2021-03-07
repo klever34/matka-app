@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   FlatList,
+  Linking,
+  Alert
 } from 'react-native';
 import Header from '../../components/Header';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -73,6 +75,26 @@ const Home = (props) => {
     }
     getUser();
   }, []);
+
+
+  const sendAdmoney = () => {
+    Linking.openURL('whatsapp://send?text=hello&phone=+917747866454')
+    .then((data)=>{
+      console.log("Whatsapp Opened")
+    }).catch(()=>{
+      Alert.alert("Install Whatsapp")
+    })
+  }
+
+  const sendWMoney = () => {
+    Linking.openURL('whatsapp://send?text=Hi&phone=+917747866454')
+    .then((data)=>{
+      console.log("Whatsapp Opened")
+    }).catch(()=>{
+      Alert.alert("Install Whatsapp")
+    })
+  }
+
 
   const RT = (props) => (
     <Text
@@ -267,7 +289,7 @@ const Home = (props) => {
                   justifyContent: 'space-evenly',
                 }}>
                 <TouchableOpacity
-                  onPress={() => props.navigation.push('Wallet')}
+                  onPress={() => sendAdmoney()}
                   style={{
                     backgroundColor: '#28E524',
                     padding: 10,
@@ -284,7 +306,7 @@ const Home = (props) => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => props.navigation.push('Withdraw')}
+                  onPress={() => sendWMoney()}
                   style={{
                     backgroundColor: '#E53C24',
                     padding: 10,

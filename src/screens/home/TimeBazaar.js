@@ -215,6 +215,7 @@ const TimeBazaar = (props) => {
               fontFamily: 'AveriaSansLibre-Regular',
               fontSize: 16,
             }}
+            keyboardType="number-pad"
             onChangeText={(text) => setAmount(text)}
           />
         </View>
