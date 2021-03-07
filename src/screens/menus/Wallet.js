@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Text,
   Image,
+  Linking,
+  Alert
 } from 'react-native';
 import BackHeader from '../../components/BackHeader';
 import {colors} from '../../constants';
@@ -22,6 +24,25 @@ const Transactions = (props) => {
     }
     getUser();
   }, []);
+
+  const sendAdmoney = () => {
+    Linking.openURL('whatsapp://send?text=hello&phone=+917747866454')
+    .then((data)=>{
+      console.log("Whatsapp Opened")
+    }).catch(()=>{
+      Alert.alert("Install Whatsapp")
+    })
+  }
+
+  const sendWMoney = () => {
+    Linking.openURL('whatsapp://send?text=Hi&phone=+917747866454')
+    .then((data)=>{
+      console.log("Whatsapp Opened")
+    }).catch(()=>{
+      Alert.alert("Install Whatsapp")
+    })
+  }
+
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <BackHeader
@@ -44,7 +65,7 @@ const Transactions = (props) => {
             marginTop: 30,
           }}>
           <TouchableOpacity
-            onPress={() => props.navigation.push('Wallet')}
+            onPress={() => sendAdmoney()}
             style={{
               backgroundColor: '#28E524',
               padding: 10,
@@ -58,7 +79,7 @@ const Transactions = (props) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props.navigation.push('Withdraw')}
+            onPress={() => sendWMoney()}
             style={{
               backgroundColor: '#E53C24',
               padding: 10,

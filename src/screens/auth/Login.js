@@ -78,10 +78,6 @@ const Login = (props) => {
           }}
         />
         <Text style={styles.appName}>Matka App</Text>
-        <Text style={[styles.appName, {marginVertical: 15}]}>
-          For any help, please WhatsApp me on{'\n'}
-          <BT>7747866454</BT>
-        </Text>
         <View style={styles.inputBox}>
           <Feather
             name={'user'}
