@@ -332,7 +332,7 @@ const Home = (props) => {
                 renderItem={renderMatches}
                 keyExtractor={(item, index) => index.toString()}
                 onEndReached={handleMoreData}
-                onEndReachedThreshold={0.5}
+                onEndReachedThreshold={0.1}
               />
             </View>
             {isLoading && (

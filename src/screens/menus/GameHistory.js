@@ -103,7 +103,7 @@ const GameHistory = (props) => {
             renderItem={renderHistory}
             keyExtractor={(item, index) => index.toString()}
             onEndReached={handleMoreData}
-            onEndReachedThreshold={0.5}
+            onEndReachedThreshold={0.1}
           />
           {isLoading && (
             <ActivityIndicator size="large" color={colors.primary} />
