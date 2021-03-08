@@ -32,7 +32,7 @@ const Agent = (props) => {
     getAgentStatus();
   }, []);
 
-  const becomeAgent = async () => {
+  const becomeAgent = async() => {
     try {
       setLoading(true);
       const value = await AsyncStorage.getItem('@user_token');
@@ -47,6 +47,25 @@ const Agent = (props) => {
       setLoading(false);
     }
   };
+
+  const otherPayments = async() => {
+    try {
+      setLoading(true);
+      const value = await AsyncStorage.getItem('@user_token');
+      axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
+      const response = await axios.post(`${baseUrl}updateBalance`,{
+        username,
+        amount:amt
+      });
+      console.log(response.data);
+      setStatus(false);
+      alert(response.data.msg);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  }
 
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>

@@ -53,7 +53,7 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                matchData.status === true
+                matchData.open_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'single',
@@ -73,7 +73,7 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                matchData.status === true
+                matchData.open_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'jodi',
@@ -93,7 +93,7 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                matchData.status === true
+                matchData.open_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'single-patti',
@@ -113,7 +113,7 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                matchData.status === true
+                matchData.open_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'double-patti',
@@ -133,7 +133,7 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                matchData.status === true
+                matchData.open_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'tripple-patti',
@@ -167,7 +167,7 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                matchData.status === '1'
+                matchData.close_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'single',
@@ -187,7 +187,7 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                matchData.status === '1'
+                matchData.close_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'single-patti',
@@ -207,7 +207,7 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                matchData.status === '1'
+                matchData.close_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'double-patti',
@@ -227,7 +227,7 @@ const PlayNow = (props) => {
             <TouchableOpacity
               style={styles.box}
               onPress={() =>
-                matchData.status === '1'
+                matchData.close_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
                       gameType: 'tripple-patti',

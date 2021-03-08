@@ -22,6 +22,7 @@ const Home = (props) => {
   const [matches, setMatches] = useState([]);
   const [showView, setView] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
+ // const [shobal, setshowbal] = useState(0);
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {

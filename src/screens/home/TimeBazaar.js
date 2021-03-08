@@ -67,7 +67,7 @@ const TimeBazaar = (props) => {
 
   useEffect(() => {
     const year = new Date().getFullYear();
-    const day = new Date().getDay();
+    const day = new Date().getDate();
     const month = new Date().getMonth();
     setDate(`${day}-${month + 1}-${year}`);
     setStateArray(dataArray);

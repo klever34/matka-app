@@ -56,16 +56,18 @@ const GameHistory = (props) => {
     return (
       <View style={[styles.headerRow, {marginVertical: 3, elevation: 5}]}>
         <View style={styles.nobox}>
-          <Text style={styles.noboxText}>Time Bazaar</Text>
+          <Text style={styles.noboxText}>{item.game_name}</Text>
         </View>
         <View style={styles.nobox}>
-          <Text style={styles.noboxText}>Open</Text>
+          <Text style={styles.noboxText}>{item.game_type}</Text>
         </View>
         <View style={styles.nobox}>
-          <Text style={styles.noboxText}>12, 45, 78</Text>
+          <Text style={styles.noboxText}>
+            {item.digits}
+          </Text>
         </View>
         <View style={styles.nobox}>
-          <Text style={styles.noboxText}>80</Text>
+          <Text style={styles.noboxText}>{item.total_amount}</Text>
         </View>
       </View>
     );
