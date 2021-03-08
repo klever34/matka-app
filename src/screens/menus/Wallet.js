@@ -26,7 +26,7 @@ const Transactions = (props) => {
   }, []);
 
   const sendAdmoney = () => {
-    Linking.openURL('whatsapp://send?text=hello&phone=+917747866454')
+    Linking.openURL('whatsapp://send?text=hello&phone=+917880256459')
     .then((data)=>{
       console.log("Whatsapp Opened")
     }).catch(()=>{

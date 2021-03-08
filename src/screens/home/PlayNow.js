@@ -96,7 +96,7 @@ const PlayNow = (props) => {
                 matchData.open_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
-                      gameType: 'single-patti',
+                      gameType: 'single_patti',
                       matchData,
                       gameStatus: 'open_game',
                       matchName
@@ -116,7 +116,7 @@ const PlayNow = (props) => {
                 matchData.open_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
-                      gameType: 'double-patti',
+                      gameType: 'double_patti',
                       matchData,
                       gameStatus: 'open_game',
                       matchName
@@ -136,7 +136,7 @@ const PlayNow = (props) => {
                 matchData.open_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
-                      gameType: 'tripple-patti',
+                      gameType: 'triple_patti',
                       matchData,
                       gameStatus: 'open_game',
                       matchName
@@ -190,7 +190,7 @@ const PlayNow = (props) => {
                 matchData.close_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
-                      gameType: 'single-patti',
+                      gameType: 'single_patti',
                       matchData,
                       gameStatus: 'close_game',
                       matchName
@@ -210,7 +210,7 @@ const PlayNow = (props) => {
                 matchData.close_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
-                      gameType: 'double-patti',
+                      gameType: 'double_patti',
                       matchData,
                       gameStatus: 'close_game',
                       matchName
@@ -230,7 +230,7 @@ const PlayNow = (props) => {
                 matchData.close_game === false
                   ? null
                   : props.navigation.push('TimeBazaar', {
-                      gameType: 'tripple-patti',
+                      gameType: 'triple_patti',
                       matchData,
                       gameStatus: 'close_game',
                       matchName

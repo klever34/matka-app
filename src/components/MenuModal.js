@@ -110,7 +110,12 @@ const MenuModal = ({exitModal, popModal, nav}) => {
               </View>
               <Text style={styles.smallText}>Withdraw</Text>
             </TouchableOpacity> */}
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity 
+              onPress={() => {
+                closeModal(true);
+                nav.push('howtplay');
+              }}
+            style={styles.box}>
               <View style={styles.iconBox}>
                 <FontAwesome5 name={'info-circle'} size={42} color={'#000'} />
               </View>
@@ -136,6 +141,16 @@ const MenuModal = ({exitModal, popModal, nav}) => {
                 <FontAwesome5 name={'share-alt'} size={42} color={'#000'} />
               </View>
               <Text style={styles.smallText}>Share</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+            onPress={() => {
+                closeModal(true);
+                nav.push('rate');
+              }} style={styles.box}>
+              <View style={styles.iconBox}>
+                <FontAwesome5 name={'th-list'} size={42} color={'#000'} />
+              </View>
+              <Text style={styles.smallText}>Rate</Text>
             </TouchableOpacity>
           </View>
         </View>

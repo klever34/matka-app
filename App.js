@@ -21,7 +21,8 @@ import Agent from './src/screens/menus/Agent';
 import {fcmService} from './src/alerts/FCMService';
 import {localNotificationService} from './src/alerts/LocalNotificationService';
 import GameHistory from './src/screens/menus/GameHistory';
-
+import Rates from './src/screens/menus/Rate';
+import HowtPlay from './src/screens/menus/HowtPlay';
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
   <AuthStack.Navigator headerMode="none">
@@ -45,6 +46,8 @@ const HomeStackScreen = () => (
     <HomeStack.Screen name="Withdraw" component={Withdraw} />
     <HomeStack.Screen name="Agent" component={Agent} />
     <HomeStack.Screen name="GameHistory" component={GameHistory} />
+    <HomeStack.Screen name="rate" component={Rates} />
+    <HomeStack.Screen name="howtplay" component={HowtPlay} />
   </HomeStack.Navigator>
 );
 
@@ -175,7 +178,6 @@ const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-
       <AuthContext.Provider value={authContext}>
         <NavigationContainer>
           <RootStackScreen userToken={userToken} />

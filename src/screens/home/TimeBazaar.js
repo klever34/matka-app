@@ -48,15 +48,15 @@ const TimeBazaar = (props) => {
       dataArray = jodi;
       // setStateArray(dataArray);
       break;
-    case 'single-patti':
+    case 'single_patti':
       dataArray = singlePatti;
       // setStateArray(dataArray);
       break;
-    case 'double-patti':
+    case 'double_patti':
       dataArray = doublePatti;
       // setStateArray(dataArray);
       break;
-    case 'tripple-patti':
+    case 'triple_patti':
       dataArray = tripplePatti;
       // setStateArray(dataArray);
       break;
