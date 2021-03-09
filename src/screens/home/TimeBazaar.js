@@ -191,7 +191,7 @@ const TimeBazaar = (props) => {
             style={[styles.boxText, {marginLeft: 10}]}
             onChangeText={(text) => setbiddingNumber(text)}
           />
-          {showView && stateDataArray.includes(parseInt(biddingNumber)) ? (
+          {showView && stateDataArray.includes(biddingNumber) ? (
             <FontAwesome5
               name={'check-circle'}
               size={22}

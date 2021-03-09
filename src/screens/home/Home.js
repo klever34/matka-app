@@ -16,6 +16,7 @@ import MenuModal from '../../components/MenuModal';
 import axios from 'axios';
 import {baseUrl, colors} from '../../constants/index';
 import AsyncStorage from '@react-native-community/async-storage';
+import moment from 'moment';
 
 const Home = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -33,7 +34,7 @@ const Home = (props) => {
         const response = await axios.get(
           `${baseUrl}allMatch?page=${pageNumber}`,
         );
-        console.log(response.data.status);
+        console.log(response.data.data.data);
         if (pageNumber <= 1) {
           setMatches(response.data.data.data);
         } else if (pageNumber > 1) {
@@ -116,25 +117,51 @@ const Home = (props) => {
     setShowModal(true);
   };
 
-  const convertTime12to24 = (time12h) => {
-    const [time, modifier] = time12h.toUpperCase().split(' ');
-    let [hours, minutes] = time.split(':');
-    var today = new Date();
-    var currentTime =
-      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
-    let [a, b] = currentTime.split(':');
-    if (hours === '12') {
-      hours = '00';
-    }
-
-    if (modifier === 'PM') {
-      hours = parseInt(hours, 10) + 12;
-    }
-    if (parseInt(a) < parseInt(hours)) {
-      return 'closed';
+  const convertTime12to24 = (time) => {
+    // console.log({time12h});
+    // console.log(moment().isAfter(moment(time12h.toUpperCase(), 'h:mma')))
+    let answer = ''
+    if (moment().isAfter(moment(time.toUpperCase(), 'h:mma'))) {
+      answer = 'closed';
     } else {
-      return 'open';
+      answer = 'open';
     }
+    return answer;
+
+    // console.log({time12h});
+    // const [time, modifier] = time12h.toUpperCase().split(' ');
+    // let [hours, minutes] = time.split(':');
+    // var today = new Date();
+    // var currentTime =
+    //   today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    // let [a, b] = currentTime.split(':');
+    // if (hours === '12') {
+    //   hours = '00';
+    // }
+
+    // if (modifier === 'PM') {
+    //   hours = parseInt(hours, 10) + 12;
+    // }
+    // let answer = ''
+    // console.log('current time ', a);
+    // console.log('converted hour to 24', hours);
+    // if (parseInt(a) <= parseInt(hours)) {
+    //   answer = 'closed';
+    // } else {
+    //   answer = 'open';
+    // }
+    // console.log({answer});
+    // return answer
+  };
+
+  const showRandomNum = (open_time) => {
+    let answer = ''
+    if (moment().isBefore(moment(open_time.toUpperCase(), 'h:mma'))) {
+      answer = 'first_rand';
+    } else {
+      answer = 'second_rand';
+    }
+    return answer;
   };
 
   const renderMatches = ({item}) => {
@@ -156,7 +183,7 @@ const Home = (props) => {
             justifyContent: 'space-between',
           }}>
           <View>
-            {convertTime12to24(item.close_time) === 'closed' ? (
+            {showRandomNum(item.open_time) === 'first_rand' ? (
               <View
                 style={{
                   flexDirection: 'row',
@@ -206,7 +233,7 @@ const Home = (props) => {
               </View>
             )}
           </View>
-          {convertTime12to24(item.close_time) === 'closed' && (
+          {convertTime12to24(item.close_time) === 'open' && (
             <TouchableOpacity
               style={styles.btn}
               onPress={() =>
@@ -230,7 +257,6 @@ const Home = (props) => {
   };
 
   const handleMoreData = () => {
-    console.log('called');
     setPageNumber(pageNumber + 1);
     setLoading(true);
   };
