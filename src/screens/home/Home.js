@@ -118,8 +118,6 @@ const Home = (props) => {
   };
 
   const convertTime12to24 = (time) => {
-    // console.log({time12h});
-    // console.log(moment().isAfter(moment(time12h.toUpperCase(), 'h:mma')))
     let answer = ''
     if (moment().isAfter(moment(time.toUpperCase(), 'h:mma'))) {
       answer = 'closed';
