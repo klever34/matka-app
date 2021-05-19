@@ -45,7 +45,7 @@ const Login = (props) => {
         password,
         notification_token: "kgasjhaskd"
       });
-      console.log(response.data);
+      console.log("working",response.data);
       if (response.data.status) {
         await AsyncStorage.setItem("@user_token", response.data.token);
         signIn();

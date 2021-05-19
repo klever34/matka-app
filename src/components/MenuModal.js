@@ -152,6 +152,16 @@ const MenuModal = ({exitModal, popModal, nav}) => {
               </View>
               <Text style={styles.smallText}>Rate</Text>
             </TouchableOpacity>
+            {/* <TouchableOpacity 
+            onPress={() => {
+                closeModal(true);
+                nav.push('chartls');
+              }} style={styles.box}>
+              <View style={styles.iconBox}>
+                <FontAwesome5 name={'chart-bar'} size={42} color={'#000'} />
+              </View>
+              <Text style={styles.smallText}>Chart</Text>
+            </TouchableOpacity> */}
           </View>
         </View>
       </Modal>

@@ -68,7 +68,36 @@
       "client_info": {
         "mobilesdk_app_id": "1:1006420851087:android:adcf1c309b6072faf973fa",
         "android_client_info": {
-          "package_name": "com.matkaapp"
+          "package_name": "com.matkaapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006420851087-8ujebndegi0u7i9ksgquinp17vjo4nrv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlO2wXaqsUk0MnST0RpSJ-y8jRbyNwtDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006420851087-8ujebndegi0u7i9ksgquinp17vjo4nrv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006420851087:android:706e6ac1b3c4901cf973fa",
+        "android_client_info": {
+          "package_name": "com.matkaapps"
         }
       },
       "oauth_client": [

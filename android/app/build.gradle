@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.matkaapp"
+        applicationId "com.matkaapps"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

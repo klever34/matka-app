@@ -302,9 +302,11 @@ const Home = (props) => {
             </View> */}
             <View style={styles.headerBox}>
               <Text style={[styles.headerText, {color: '#000', fontSize: 22}]}>
-                Add/Withdraw Money
+                Points Add/Withdraw
               </Text>
+              <Text style={[styles.headerText, {color: 'red'}]}>+91-7880256459</Text>
               <Text style={[styles.headerText, {color: '#000'}]}>
+                For Points Add or Withdraw Contact to Admin
                 Click here to get redirected to WhatsApp
               </Text>
               <View
@@ -327,7 +329,7 @@ const Home = (props) => {
                       color: '#fff',
                       fontFamily: 'AveriaSansLibre-Regular',
                     }}>
-                    Add Money
+                    Add Points
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity

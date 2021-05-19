@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.matkaapp",
+    package = "com.matkaapps",
 )
 
 android_resource(
     name = "res",
-    package = "com.matkaapp",
+    package = "com.matkaapps",
     res = "src/main/res",
 )
 

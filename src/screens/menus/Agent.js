@@ -116,7 +116,7 @@ const Agent = (props) => {
                   padding: 30,
                 },
               ]}>
-              <Text style={styles.boxText}>Money Distribution</Text>
+              <Text style={styles.boxText}>Points Distribution</Text>
               <Image
                 source={require('../../assets/images/share.png')}
                 style={{height: 40, width: 40, resizeMode: 'contain'}}
@@ -136,7 +136,7 @@ const Agent = (props) => {
               </View>
               <View style={styles.box}>
                 <TextInput
-                  placeholder={'Amount'}
+                  placeholder={'Points'}
                   style={{
                     width: '100%',
                     fontFamily: 'AveriaSansLibre-Regular',

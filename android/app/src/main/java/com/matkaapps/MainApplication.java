@@ -1,4 +1,4 @@
-package com.matkaapp;
+package com.matkaapps;
 
 import android.app.Application;
 import android.content.Context;

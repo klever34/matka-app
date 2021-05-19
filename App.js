@@ -18,11 +18,12 @@ import Withdraw from './src/screens/menus/Withdraw';
 import ForgotPassword from './src/screens/auth/ForgotPassword';
 import CreateProfile from './src/screens/auth/CreateProfile';
 import Agent from './src/screens/menus/Agent';
-import {fcmService} from './src/alerts/FCMService';
-import {localNotificationService} from './src/alerts/LocalNotificationService';
 import GameHistory from './src/screens/menus/GameHistory';
 import Rates from './src/screens/menus/Rate';
 import HowtPlay from './src/screens/menus/HowtPlay';
+import Chart_List from './src/screens/menus/Chart_List';
+import Chart_Detail from './src/screens/menus/Chart_Detail';
+
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
   <AuthStack.Navigator headerMode="none">
@@ -48,6 +49,8 @@ const HomeStackScreen = () => (
     <HomeStack.Screen name="GameHistory" component={GameHistory} />
     <HomeStack.Screen name="rate" component={Rates} />
     <HomeStack.Screen name="howtplay" component={HowtPlay} />
+    <HomeStack.Screen name="chartls" component={Chart_List} />
+    <HomeStack.Screen name="chartdt" component={Chart_Detail} />
   </HomeStack.Navigator>
 );
 
@@ -77,38 +80,38 @@ const App = () => {
   const [showSplash, setShowSplash] = React.useState(null);
   const [userToken, setUserToken] = React.useState(null);
 
-  useEffect(() => {
-    fcmService.registerAppWithFCM();
-    // fcmService.subscribeToTournament();
-    fcmService.register(onRegister, onNotification, onOpenNotification);
-    localNotificationService.configure(onOpenNotification);
+  // useEffect(() => {
+  //   fcmService.registerAppWithFCM();
+  //   // fcmService.subscribeToTournament();
+  //   fcmService.register(onRegister, onNotification, onOpenNotification);
+  //   localNotificationService.configure(onOpenNotification);
 
-    async function onRegister(token) {
-      console.log({token});
-      // await AsyncStorage.setItem(`@firebase_token`, token);
-    }
+  //   async function onRegister(token) {
+  //     console.log({token});
+  //     // await AsyncStorage.setItem(`@firebase_token`, token);
+  //   }
 
-    function onNotification(notify) {
-      const options = {
-        soundName: 'default',
-        playSound: true,
-      };
-      localNotificationService.showNotification(
-        new Date().getMilliseconds(),
-        notify.title,
-        notify.body,
-        notify,
-        options,
-      );
-    }
+  //   function onNotification(notify) {
+  //     const options = {
+  //       soundName: 'default',
+  //       playSound: true,
+  //     };
+  //     localNotificationService.showNotification(
+  //       new Date().getMilliseconds(),
+  //       notify.title,
+  //       notify.body,
+  //       notify,
+  //       options,
+  //     );
+  //   }
 
-    function onOpenNotification(notify) {}
+  //   function onOpenNotification(notify) {}
 
-    return () => {
-      fcmService.unRegister();
-      localNotificationService.unregister();
-    };
-  }, []);
+  //   return () => {
+  //     fcmService.unRegister();
+  //     localNotificationService.unregister();
+  //   };
+  // }, []);
 
   useEffect(() => {
     async function getSplashStatus() {
@@ -160,7 +163,7 @@ const App = () => {
     async function getToken() {
       try {
         const value = await AsyncStorage.getItem('@user_token');
-
+        console.log("Token", value)
         if (value !== null) {
           setUserToken(value);
         } else {

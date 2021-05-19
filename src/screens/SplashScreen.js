@@ -6,7 +6,7 @@ const SplashScreen = (props) => {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/images/logo.png')} style={styles.img} />
-      <Text style={styles.appName}>Matka App</Text>
+      <Text style={styles.appName}>GM Matka</Text>
     </View>
   );
 };

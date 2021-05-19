@@ -127,6 +127,7 @@ const TimeBazaar = (props) => {
       // if(response.data.status)
       alert(response.data.msg);
       setIndicator(false);
+      setBidArray([])
     } catch (error) {
       console.log(error);
       setIndicator(false);
@@ -209,7 +210,7 @@ const TimeBazaar = (props) => {
             {height: 50, padding: null, paddingHorizontal: 10},
           ]}>
           <TextInput
-            placeholder={'Amount'}
+            placeholder={'Points'}
             style={{
               width: '100%',
               fontFamily: 'AveriaSansLibre-Regular',
@@ -261,7 +262,7 @@ const TimeBazaar = (props) => {
                 },
               ]}>
               <Text style={[styles.noboxText, {fontSize: 18}]}>
-                ₹ {item.amount}
+                {item.amount}
               </Text>
               <FontAwesome5
                 name={'times'}

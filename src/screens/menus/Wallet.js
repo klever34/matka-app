@@ -75,7 +75,7 @@ const Transactions = (props) => {
             }}>
             <Text
               style={{color: '#fff', fontFamily: 'AveriaSansLibre-Regular'}}>
-              Add Money
+              Add Points
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

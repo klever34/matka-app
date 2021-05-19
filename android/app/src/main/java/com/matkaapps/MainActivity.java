@@ -1,4 +1,4 @@
-package com.matkaapp;
+package com.matkaapps;
 
 import com.facebook.react.ReactActivity;
 

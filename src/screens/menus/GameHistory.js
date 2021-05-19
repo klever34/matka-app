@@ -53,6 +53,7 @@ const GameHistory = (props) => {
   };
 
   const renderHistory = ({item}) => {
+    var date = new Date(item.created_at);
     return (
       <View style={[styles.headerRow, {marginVertical: 3, elevation: 5}]}>
         <View style={styles.nobox}>
@@ -68,6 +69,9 @@ const GameHistory = (props) => {
         </View>
         <View style={styles.nobox}>
           <Text style={styles.noboxText}>{item.total_amount}</Text>
+        </View>
+        <View style={styles.nobox}>
+          <Text style={styles.noboxText}>{date.getDate() + "/"+date.getMonth() + "/"+date.getFullYear()}</Text>
         </View>
       </View>
     );
@@ -94,7 +98,10 @@ const GameHistory = (props) => {
               <Text style={styles.noboxText}>Bid Number</Text>
             </View>
             <View style={styles.nobox}>
-              <Text style={styles.noboxText}>Total Amount</Text>
+              <Text style={styles.noboxText}>Total Points</Text>
+            </View>
+            <View style={styles.nobox}>
+              <Text style={styles.noboxText}>Date</Text>
             </View>
           </View>
           <FlatList
